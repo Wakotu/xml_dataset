@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.apache.sentry</groupId>
+    <artifactId>sentry</artifactId>
+    <version>2.3.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>sentry-dist</artifactId>
+  <name>Sentry Distribution</name>
+  <description>Sentry distribution</description>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-core-common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-core-model-db</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-core-model-indexer</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-core-model-solr</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-core-model-sqoop</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-core-model-kafka</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-binding-hbase-indexer</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-binding-solr</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-continuation</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-io</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-jmx</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-deploy</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-rewrite</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-security</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-servlets</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-xml</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-binding-sqoop</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-binding-kafka</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-provider-common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-provider-file</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-provider-db</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-provider-cache</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-policy-common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>solr-sentry-handlers</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-hdfs-dist</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-tools</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-binding-hive</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.sentry</groupId>
+          <artifactId>sentry-provider-db</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-service-client</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+    <groupId>org.apache.sentry</groupId>
+    <artifactId>sentry-service-api</artifactId>
+    <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-service-web</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-policy-engine</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sentry</groupId>
+      <artifactId>sentry-binding-hive-follower</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+
+  <profiles>
+    <profile>
+      <id>dist</id>
+      <build>
+        <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>assemble</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>single</goal>
+                </goals>
+                <inherited>false</inherited>
+                <configuration>
+                  <finalName>apache-sentry-${project.version}</finalName>
+                  <descriptors>
+                    <descriptor>src/main/assembly/src.xml</descriptor>
+                    <descriptor>src/main/assembly/bin.xml</descriptor>
+                  </descriptors>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>license-maven-plugin</artifactId>
+            <version>1.14</version>
+            <executions>
+              <execution>
+                <id>add-third-party</id>
+                <goals>
+                  <goal>add-third-party</goal>
+                </goals>
+                <configuration>
+                  <fileTemplate>${project.basedir}/src/license/THIRD-PARTY.ftl</fileTemplate>
+                  <licenseMerges>
+                    <licenseMerge>The Apache Software License, Version 2.0|Apache License, Version 2.0</licenseMerge>
+                    <licenseMerge>The Apache Software License, Version 2.0|Apache Public License 2.0</licenseMerge>
+                    <licenseMerge>The Apache Software License, Version 2.0|Apache 2</licenseMerge>
+                    <licenseMerge>The Apache Software License, Version 2.0|Apache License</licenseMerge>
+                    <licenseMerge>The Apache Software License, Version 2.0|Apache License 2.0</licenseMerge>
+                    <licenseMerge>The Apache Software License, Version 2.0|Apache License Version 2</licenseMerge>
+                    <licenseMerge>The Apache Software License, Version 2.0|Apache License Version 2.0</licenseMerge>
+                    <licenseMerge>The Apache Software License, Version 2.0|Apache Software License - Version 2.0</licenseMerge>
+                    <licenseMerge>The Apache Software License, Version 2.0|Apache v2</licenseMerge>
+                    <licenseMerge>The Apache Software License, Version 2.0|Apache 2.0</licenseMerge>
+                    <licenseMerge>The Apache Software License, Version 2.0|Apache</licenseMerge>
+                    <licenseMerge>The Apache Software License, Version 2.0|Apache_2_0_license</licenseMerge>
+                    <licenseMerge>Mozilla Public License Version 1.1|MPL 1.1</licenseMerge>
+                    <licenseMerge>MIT License|The MIT License</licenseMerge>
+                    <licenseMerge>CDDL_1.0|CDDL 1.0</licenseMerge>
+                    <licenseMerge>CDDL_1.0|COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</licenseMerge>
+                    <licenseMerge>CDDL_1.0|Common_Development_and_Distribution_License_(CDDL)_v1_0</licenseMerge>
+                    <licenseMerge>CDDL_1.0|Common Development and Distribution License (CDDL) v1.0</licenseMerge>
+                    <licenseMerge>CDDL_1.0|CDDL 1.0 license</licenseMerge>
+                    <licenseMerge>CDDL_1.0|CDDL 2</licenseMerge>
+                    <licenseMerge>BSD License|BSD license|BSD|BSD_style|BSD licence|New BSD License|New BSD license</licenseMerge>
+                    <licenseMerge>BSD 2-clause|The BSD License</licenseMerge>
+                    <licenseMerge>Eclipse Public License-1|Common_Public_License_Version_1_0</licenseMerge>
+                    <licenseMerge>Eclipse Public License-1|Eclipse_Public_License_-_Version_1_0</licenseMerge>
+                    <licenseMerge>Eclipse Public License-1|EPL 1.0 license</licenseMerge>
+                    <licenseMerge>GPL|GNU General Public Library</licenseMerge>
+                  </licenseMerges>
+                  <excludedGroups>${project.groupId}.*</excludedGroups>
+                  <useMissingFile>true</useMissingFile>
+                </configuration>
+              </execution>
+              <execution>
+                <goals>
+                  <goal>aggregate-download-licenses</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.rat</groupId>
+            <artifactId>apache-rat-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>compile</phase>
+                <configuration>
+                  <target>
+                    <concat destfile="${project.build.directory}/LICENSE.txt" fixlastline="yes" append="no">
+                      <fileset file="${project.basedir}/../LICENSE.txt" />
+                      <fileset file="${project.build.directory}/generated-sources/license/THIRD-PARTY.txt" />
+                    </concat>
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
+

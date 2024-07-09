@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ | Licensed to the Apache Software Foundation (ASF) under one
+ | or more contributor license agreements.  See the NOTICE file
+ | distributed with this work for additional information
+ | regarding copyright ownership.  The ASF licenses this file
+ | to you under the Apache License, Version 2.0 (the
+ | "License"); you may not use this file except in compliance
+ | with the License.  You may obtain a copy of the License at
+ |
+ |   http://www.apache.org/licenses/LICENSE-2.0
+ |
+ | Unless required by applicable law or agreed to in writing,
+ | software distributed under the License is distributed on an
+ | "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ | KIND, either express or implied.  See the License for the
+ | specific language governing permissions and limitations
+ | under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.apache.onami</groupId>
+    <artifactId>org.apache.onami.parent</artifactId>
+    <version>5</version>
+  </parent>
+
+  <groupId>org.apache.onami.autobind</groupId>
+  <artifactId>org.apache.onami.autobind.parent</artifactId>
+  <version>0.9.2-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>Apache Onami Autobind</name>
+  <description>Apache Onami-Autobind is the automatic Injection/Binding for Google Guice, an extension which add the
+  support for Classpath Scanner and auto registration for Guice-Modules and Beans</description>
+  <url>http://onami.apache.org/autobind/</url>
+  <inceptionYear>2010</inceptionYear>
+
+  <modules>
+    <module>core</module>
+    <module>configuration</module>
+    <module>examples</module>
+    <module>integrations</module>
+    <module>scanner</module>
+    <module>aop</module>
+    <module>tests</module>
+  </modules>
+
+  <scm>
+    <url>https://svn.apache.org/viewvc/onami/trunk/autobind</url>
+    <connection>scm:svn:https://svn.apache.org/repos/asf/onami/trunk/autobind</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/onami/trunk/autobind</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+  <issueManagement>
+    <system>JIRA</system>
+    <url>https://issues.apache.org/jira/browse/ONAMI/component/12320005</url>
+  </issueManagement>
+  <ciManagement>
+    <system>Jenkins</system>
+    <url>https://builds.apache.org/job/Onami-Autobind/</url>
+    <notifiers>
+      <notifier>
+        <type>mail</type>
+        <sendOnError>true</sendOnError>
+        <sendOnFailure>true</sendOnFailure>
+        <sendOnSuccess>false</sendOnSuccess>
+        <sendOnWarning>false</sendOnWarning>
+        <configuration>
+          <address>dev@onami.apache.org</address>
+        </configuration>
+      </notifier>
+    </notifiers>
+  </ciManagement>
+
+  <properties>
+    <javac.src.version>1.6</javac.src.version>
+    <javac.target.version>1.6</javac.target.version>
+
+    <onami.autobind.siteFilePath>${user.home}/onami-sites/onami-autobind-site/</onami.autobind.siteFilePath>
+    <onami.autobind.siteUrlDeployment>file://${onami.autobind.siteFilePath}</onami.autobind.siteUrlDeployment>
+    <onami.autobind.scmPubCheckoutDirectory>${user.home}/onami-sites/onami-autobind-site-content</onami.autobind.scmPubCheckoutDirectory>
+
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.google.inject.extensions</groupId>
+      <artifactId>guice-multibindings</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-scm-publish-plugin</artifactId>
+          <configuration>
+            <checkoutDirectory>${onami.autobind.scmPubCheckoutDirectory}</checkoutDirectory>
+            <pubScmUrl>scm:svn:https://svn.apache.org/repos/asf/onami/site/autobind</pubScmUrl>
+            <checkinComment>Onami Autobind site deployment</checkinComment>
+            <content>${project.build.directory}/staging</content>
+            <tryUpdate>true</tryUpdate>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <distributionManagement>
+    <site>
+      <id>apache.website</id>
+      <url>${onami.autobind.siteUrlDeployment}</url>
+    </site>
+  </distributionManagement>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${javadoc.version}</version>
+        <inherited>false</inherited>
+        <configuration>
+          <additionalDependencies>
+            <additionalDependency>
+              <groupId>com.google.code.findbugs</groupId>
+              <artifactId>jsr305</artifactId>
+              <version>2.0.1</version>
+            </additionalDependency>
+          </additionalDependencies>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>aggregate</report>
+              <report>test-aggregate</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
+
+</project>

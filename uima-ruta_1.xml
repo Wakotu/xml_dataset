@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements. See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership. The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License. You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied. See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.apache.uima</groupId>
+    <artifactId>ruta-parent</artifactId>
+    <version>3.5.0-SNAPSHOT</version>
+    <relativePath>ruta-parent/pom.xml</relativePath>
+  </parent>
+
+  <artifactId>ruta</artifactId>
+  <packaging>pom</packaging>
+  <name>Apache UIMA Ruta: ${project.artifactId}</name>
+  <description>The top project for Apache UIMA Ruta</description>
+  <url>${uimaWebsiteUrl}</url>
+
+  <!-- Special inheritance note even though the <scm> element that follows is exactly the same as those
+    in super poms, it cannot be inherited because there is some special code that computes the connection
+    elements from the chain of parent poms, if this is omitted. Keeping this a bit factored allows cutting/pasting
+    the <scm> element, and just changing the following two properties -->
+  <scm>
+    <connection>scm:git:https://github.com/apache/uima-ruta/</connection>
+    <developerConnection>scm:git:https://github.com/apache/uima-ruta/</developerConnection>
+    <url>https://github.com/apache/uima-ruta/</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <!-- dependencies used during assembly -->
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.uima</groupId>
+      <artifactId>ruta-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.uima</groupId>
+      <artifactId>ruta-core-ext</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.uima</groupId>
+      <artifactId>ruta-ep-addons</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.uima</groupId>
+      <artifactId>ruta-ep-caseditor</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.uima</groupId>
+      <artifactId>ruta-ep-engine</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.uima</groupId>
+      <artifactId>ruta-ep-ide</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.uima</groupId>
+      <artifactId>ruta-ep-textruler</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.uima</groupId>
+      <artifactId>ruta-ep-core-ext</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.uima</groupId>
+      <artifactId>ruta-maven-plugin</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+
+  <modules>
+    <module>ruta-parent</module>
+    <module>ruta-core</module>
+    <module>ruta-core-ext</module>
+
+    <module>ruta-maven-plugin</module>
+    <module>ruta-maven-archetype</module>
+
+    <module>ruta-ep-parent</module>
+    <module>ruta-ep-engine</module>
+    <module>ruta-ep-ide</module>
+    <module>ruta-ep-ide-ui</module>
+    <module>ruta-ep-caseditor</module>
+    <module>ruta-ep-addons</module>
+    <module>ruta-ep-textruler</module>
+    <module>ruta-ep-core-ext</module>
+    <module>ruta-eclipse-feature</module>
+    <module>ruta-eclipse-update-site</module>
+
+    <module>ruta-documentation</module>
+
+    <module>example-projects/ruta-ep-example-extensions</module>
+    <module>example-projects/ruta-maven-example</module>
+  </modules>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.rat</groupId>
+          <artifactId>apache-rat-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>default-cli</id>
+                <!-- default configuration -->
+              <configuration>
+                <excludes combine.children="append">
+                  <!-- These configuration files cannot bear a license header -->
+                  <exclude>.github/**/*</exclude>
+                  <exclude>src/main/eclipse/*.prefs</exclude>
+                  <!--  workaround https://issues.apache.org/jira/browse/RAT-97 -->
+                  <exclude>example-projects/**</exclude>
+                  <exclude>ruta-core/**</exclude>
+                  <exclude>ruta-core-ext/**</exclude>
+                  <exclude>ruta-docbook/**</exclude>
+                  <exclude>ruta-eclipse-feature/**</exclude>
+                  <exclude>ruta-eclipse-update-site/**</exclude>
+                  <exclude>ruta-ep-addons/**</exclude>
+                  <exclude>ruta-ep-caseditor/**</exclude>
+                  <exclude>ruta-ep-core-ext/**</exclude>
+                  <exclude>ruta-ep-engine/**</exclude>
+                  <exclude>ruta-ep-ide/**</exclude>
+                  <exclude>ruta-ep-ide-ui/**</exclude>
+                  <exclude>ruta-ep-parent/**</exclude>
+                  <exclude>ruta-ep-textruler/**</exclude>
+                  <exclude>ruta-maven-archetype/**</exclude>
+                  <exclude>ruta-maven-plugin/**</exclude>
+                  <exclude>ruta-parent/**</exclude>
+                </excludes>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>apache-release-rc-auto-staging-config</id>
+      <activation>
+        <property>
+          <name>!disable-rc-auto-staging</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <inherited>false</inherited>
+            <executions>
+              <execution>
+                <id>release-rc-auto-staging</id>
+                <phase>install</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <target>
+                    <mkdir dir="${staging-local-root}/${staging-folder}" />
+                    <copy todir="${staging-local-root}/${staging-folder}">
+                      <fileset dir="${project.build.directory}">
+                        <include name="ruta-${project.version}-*.zip" />
+                        <include name="ruta-${project.version}-*.zip.asc" />
+                        <include name="ruta-${project.version}-*.zip.sha512" />
+                        <include name="ruta-${project.version}-*.tar.gz" />
+                        <include name="ruta-${project.version}-*.tar.gz.asc" />
+                        <include name="ruta-${project.version}-*.tar.gz.sha512" />
+                      </fileset>
+                    </copy>
+                    <copy todir="${staging-local-root}/${staging-folder}/eclipse-update-site">
+                      <fileset dir="ruta-eclipse-update-site/target/repository">
+                        <include name="**/*" />
+                      </fileset>
+                    </copy>
+                  </target>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>apache-release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <inherited>false</inherited>
+            <executions>
+              <execution>
+                <id>ExtendSourceRelease</id>
+                <phase>package</phase>
+                <configuration>
+                  <target>
+                    <zip destfile="${project.build.directory}/${project.artifactId}-${project.version}-source-release.zip" update="true">
+                      <zipfileset dir="${basedir}/example-projects/ExampleProject/" includes=".project" prefix="${project.artifactId}-${project.version}/example-projects/ExampleProject/" />
+                    </zip>
+                    <!-- <zip -->
+                    <!-- destfile="${project.build.directory}/${project.artifactId}-${project.version}-source-release.zip" -->
+                    <!-- update="true"> -->
+                    <!-- <zipfileset -->
+                    <!-- dir="${basedir}/example-projects/ExtensionsExample/" -->
+                    <!-- includes=".project" -->
+                    <!-- prefix="${project.artifactId}-${project.version}/example-projects/ExtensionsExample/" 
+                                  /> -->
+                    <!-- </zip> -->
+                    <zip destfile="${project.build.directory}/${project.artifactId}-${project.version}-source-release.zip" update="true">
+                      <zipfileset dir="${basedir}/example-projects/TextRulerExample/" includes=".project" prefix="${project.artifactId}-${project.version}/example-projects/TextRulerExample/" />
+                    </zip>
+                    <!-- <zip -->
+                    <!-- destfile="${project.build.directory}/${project.artifactId}-${project.version}-source-release.zip" -->
+                    <!-- update="true"> -->
+                    <!-- <zipfileset dir="${basedir}/example-projects/GermanNovels/" -->
+                    <!-- includes=".project" -->
+                    <!-- prefix="${project.artifactId}-${project.version}/example-projects/GermanNovels/" 
+                                  /> -->
+                    <!-- </zip> -->
+                    <zip destfile="${project.build.directory}/${project.artifactId}-${project.version}-source-release.zip" update="true">
+                      <zipfileset dir="${basedir}/example-projects/Misc/" includes=".project" prefix="${project.artifactId}-${project.version}/example-projects/Misc/" />
+                    </zip>
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

@@ -1,0 +1,223 @@
+<?xml version="1.0"?><!-- Licensed to the Apache Software Foundation (ASF) 
+    under one or more contributor license agreements. See the NOTICE file distributed 
+    with this work for additional information regarding copyright ownership. 
+    The ASF licenses this file to You under the Apache License, Version 2.0 (the 
+    "License"); you may not use this file except in compliance with the License. 
+    You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 
+    Unless required by applicable law or agreed to in writing, software distributed 
+    under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+    OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+    the specific language governing permissions and limitations under the License. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.apache.sling</groupId>
+        <artifactId>sling</artifactId>
+        <version>52</version>
+        <relativePath />
+    </parent>
+
+    <artifactId>org.apache.sling.feature.extension.content</artifactId>
+    <version>1.0.13-SNAPSHOT</version>
+    <name>Apache Sling Feature Model Content Extension</name>
+
+    <licenses>
+        <!-- This is also in the Apache parent POM, but adding it here includes 
+            it in dependency-reduced-pom.xml so that it passes the rat check. -->
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-feature-extension-content.git</connection>
+        <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-feature-extension-content.git</developerConnection>
+        <url>https://github.com/apache/sling-org-apache-sling-feature-extension-content.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <properties>
+        <jdk.version>8</jdk.version>
+        <surefire.plugin.version>3.0.0-M3</surefire.plugin.version>
+        <jackrabbit.version>2.18.0</jackrabbit.version>
+        <!-- must be unique to prevent classloader clashes in the loader -->
+        <relocated.package.prefix>relocated_for_contentpackage.</relocated.package.prefix>
+    </properties>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <excludes>
+                                    <exclude>org.slf4j:*</exclude>
+                                </excludes>
+                            </artifactSet>
+                            <relocations>
+                                <!-- shade and relocate all "compile" scope dependencies (which are not coming with the launcher) -->
+                                <relocation>
+                                    <pattern>org.apache.jackrabbit</pattern>
+                                    <shadedPattern>${relocated.package.prefix}org.apache.jackrabbit</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.commons</pattern>
+                                    <shadedPattern>${relocated.package.prefix}org.apache.commons</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.commons</pattern>
+                                    <shadedPattern>${relocated.package.prefix}org.apache.commons</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.http</pattern>
+                                    <shadedPattern>${relocated.package.prefix}org.apache.http</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.maven.artifact</pattern>
+                                    <shadedPattern>${relocated.package.prefix}org.apache.maven.artifact</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.maven.repository</pattern>
+                                    <shadedPattern>${relocated.package.prefix}org.apache.maven.repository</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.codehaus.plexus.util</pattern>
+                                    <shadedPattern>${relocated.package.prefix}org.codehaus.plexus.util</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.codehaus.stax2</pattern>
+                                    <shadedPattern>${relocated.package.prefix}org.codehaus.stax2</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.codehaus.stax2</pattern>
+                                    <shadedPattern>${relocated.package.prefix}org.codehaus.stax2</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.ctc.wstx</pattern>
+                                    <shadedPattern>${relocated.package.prefix}com.ctc.wstx</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.sun.xml.txw2</pattern>
+                                    <shadedPattern>${relocated.package.prefix}com.sun.xml.txw2</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>javax.jcr</pattern>
+                                    <shadedPattern>${relocated.package.prefix}javax.jcr</shadedPattern>
+                                </relocation>
+                                <!-- This is required for the OSGi configuration PIDs used in the code, otherwise they get shaded as well -->
+                                <relocation>
+                                    <pattern>org.UNSHADE.apache</pattern>
+                                    <shadedPattern>org.apache</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.rat</groupId>
+                <artifactId>apache-rat-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>src/main/resources/META-INF/services/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.feature</artifactId>
+            <version>2.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jackrabbit.vault</groupId>
+            <artifactId>org.apache.jackrabbit.vault</artifactId>
+            <version>3.5.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- START: transitive dependencies with scope "provided" of vault -->
+        <!-- jackrabbit -->
+        <dependency>
+            <groupId>org.apache.jackrabbit</groupId>
+            <artifactId>oak-jackrabbit-api</artifactId>
+            <version>1.38.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jackrabbit</groupId>
+            <artifactId>jackrabbit-jcr-commons</artifactId>
+            <version>${jackrabbit.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jackrabbit</groupId>
+            <artifactId>jackrabbit-spi-commons</artifactId>
+            <version>${jackrabbit.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jackrabbit</groupId>
+            <artifactId>jackrabbit-spi</artifactId>
+            <version>${jackrabbit.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jackrabbit</groupId>
+            <artifactId>jackrabbit-spi2dav</artifactId>
+            <version>${jackrabbit.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.jcr</groupId>
+            <artifactId>jcr</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.framework</artifactId>
+            <version>1.8.0</version>
+            <!-- provided by launcher -->
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.13.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- END: transitive dependencies with scope "provided" of vault -->
+
+        <dependency>
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.feature.launcher</artifactId>
+            <version>1.3.0</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- Testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>2.23.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <groupId>org.apache</groupId>
+    <artifactId>apache</artifactId>
+    <version>30</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.apache.geronimo.arthur</groupId>
+  <artifactId>arthur</artifactId>
+  <version>1.0.10-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>Arthur</name>
+  <description>Apache Geronimo GraalVM tooling</description>
+  <inceptionYear>2019</inceptionYear>
+  <url>http://geronimo.apache.org/arthur/</url>
+
+  <properties>
+    <!-- main deps -->
+    <slf4j.version>1.7.36</slf4j.version>
+    <ziplock.version>8.0.0</ziplock.version>
+    <common-compress.version>1.24.0</common-compress.version>
+
+    <!-- knights -->
+    <jsch.version>0.1.55</jsch.version>
+    <graalvm.version>20.3.0</graalvm.version>
+    <winegrower.version>1.0.0</winegrower.version>
+
+    <!-- plugin versions/confs -->
+    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+
+    <!-- jar vars -->
+    <geronimo-arthur.shortname>${project.artifactId}</geronimo-arthur.shortname>
+    <geronimo-arthur.Automatic-Module-Name>${project.groupId}.${geronimo-arthur.shortname}
+    </geronimo-arthur.Automatic-Module-Name>
+    <junit.version>5.7.0</junit.version>
+  </properties>
+
+  <modules>
+    <module>arthur-api</module>
+    <module>arthur-impl</module>
+    <module>arthur-maven-plugin</module>
+    <module>arthur-spi</module>
+    <module>documentation</module>
+    <module>knights</module>
+  </modules>
+
+  <profiles>
+    <profile>
+      <id>integration-tests</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <modules>
+        <module>integration-test</module>
+      </modules>
+    </profile>
+  </profiles>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.30</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency> <!-- not strictly needed for compile classpath but surefire 3M5 requires its presence -->
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.tomee</groupId>
+        <artifactId>ziplock</artifactId>
+        <version>${ziplock.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>*</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-compress</artifactId>
+        <version>${common-compress.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.xbean</groupId>
+        <artifactId>xbean-finder-shaded</artifactId>
+        <version>4.23</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.apache.xbean</groupId>
+            <artifactId>xbean-bundleutils</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-json_1.1_spec</artifactId>
+        <version>1.5</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-jsonb_1.0_spec</artifactId>
+        <version>1.4</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.johnzon</groupId>
+        <artifactId>johnzon-jsonb</artifactId>
+        <version>1.2.15</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>${slf4j.version}</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+          <showDeprecation>true</showDeprecation>
+          <showWarnings>true</showWarnings>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <version>0.13</version>
+        <configuration>
+          <excludes>
+            <exclude>**/*/MANIFEST.MF</exclude>
+            <exclude>**/META-INF/services/*</exclude>
+            <exclude>**/crest-commands.txt</exclude>
+            <exclude>**/*.html</exclude>
+            <exclude>**/favicon/*</exclude>
+            <exclude>.site-content/**</exclude>
+            <exclude>.m2/**</exclude>
+            <exclude>**/*.iml</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M5</version>
+        <configuration>
+          <forkCount>1</forkCount>
+          <reuseForks>true</reuseForks>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.3</version>
+        <configuration>
+          <useReleaseProfile>false</useReleaseProfile>
+          <goals>deploy</goals>
+          <arguments>-Papache-release ${arguments}</arguments>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <waitBeforeTagging>2</waitBeforeTagging>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <archive combine.children="append">
+            <manifestEntries>
+              <Automatic-Module-Name>${geronimo-arthur.Automatic-Module-Name}</Automatic-Module-Name>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin><!--  mvn ossindex:audit -->
+        <groupId>org.sonatype.ossindex.maven</groupId>
+        <artifactId>ossindex-maven-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <id>audit-dependencies</id>
+            <phase />
+            <goals>
+              <goal>audit</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <scope>compile,runtime</scope>
+          <!-- Exclude for jackson, guava and maven-plugin //todo need to be removed when CVE fixes are released -->
+          <excludeVulnerabilityIds>CVE-2023-35116,CWE-346,CVE-2021-26291,CWE-400,sonatype-2022-6438,sonatype-2020-0491,sonatype-2012-0126,sonatype-2020-0926</excludeVulnerabilityIds>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <developers>
+    <developer>
+      <name>Apache Geronimo Community</name>
+      <url>https://geronimo.apache.org</url>
+      <organization>Apache</organization>
+    </developer>
+  </developers>
+
+  <issueManagement>
+    <system>ASF JIRA</system>
+    <url>https://issues.apache.org/jira/browse/GERONIMO</url>
+  </issueManagement>
+
+  <repositories>
+    <repository>
+      <id>apache.snapshots</id>
+      <url>https://repository.apache.org/content/repositories/snapshots/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>apache.snapshots</id>
+      <url>https://repository.apache.org/content/repositories/snapshots/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/geronimo-arthur.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/geronimo-arthur.git</developerConnection>
+    <url>https://gitbox.apache.org/repos/asf/geronimo-arthur.git</url>
+    <tag>HEAD</tag>
+  </scm>
+</project>

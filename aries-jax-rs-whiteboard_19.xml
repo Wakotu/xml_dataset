@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements. See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership. The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License. You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied. See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.apache.aries.jax.rs</groupId>
+        <artifactId>org.apache.aries.jax.rs</artifactId>
+        <version>2.0.3-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>org.apache.aries.jax.rs.example</artifactId>
+    <description>Apache Aries JAX-RS Whiteboard Example</description>
+    <name>Apache Aries JAX-RS Whiteboard Example</name>
+
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <maven.install.skip>true</maven.install.skip>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>bnd-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>bnd-resolver-maven-plugin</artifactId>
+                <configuration>
+                    <failOnChanges>false</failOnChanges>
+                    <includeDependencyManagement>true</includeDependencyManagement>
+                    <bndruns>
+                        <bndrun>aries-jaxrs-whiteboard-only.bndrun</bndrun>
+                        <bndrun>aries-jaxrs-whiteboard-example.bndrun</bndrun>
+                    </bndruns>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>bnd-export-maven-plugin</artifactId>
+                <configuration>
+                    <failOnChanges>false</failOnChanges>
+                    <includeDependencyManagement>true</includeDependencyManagement>
+                    <bndruns>
+                        <bndrun>aries-jaxrs-whiteboard-only.bndrun</bndrun>
+                        <bndrun>aries-jaxrs-whiteboard-example.bndrun</bndrun>
+                        <bndrun>aries-jaxrs-whiteboard-example-connect.bndrun</bndrun>
+                    </bndruns>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>bnd-run-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>example</id>
+                        <configuration>
+                            <bndrun>aries-jaxrs-whiteboard-example.bndrun</bndrun>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>whiteboard-only</id>
+                        <configuration>
+                            <bndrun>aries-jaxrs-whiteboard-only.bndrun</bndrun>
+                        </configuration>
+                    </execution>
+              </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <!-- These compile dependencies are used directly by the example resource -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.component.annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.jaxrs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jaxrs_2.1_spec</artifactId>
+        </dependency>
+
+        <!-- This runtime dependency is a Declarative Services implementation,
+        used to publish the example resource as an OSGi service-->
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.scr</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- This runtime dependency is the Aries JAX-RS whiteboard, used to
+        provide a JAX-RS runtime for hosting the Foo service  -->
+        <dependency>
+            <groupId>org.apache.aries.jax.rs</groupId>
+            <artifactId>org.apache.aries.jax.rs.whiteboard</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- These runtime dependencies are needed to run the JAX-RS whiteboard,
+         * Felix Http Jetty provides an HTTP whiteboard implementation
+         * Felix Configuration Admin provides configuration support,
+         * Eclipse Equinox is the OSGi framework implementation
+
+         You can choose different implementations if you prefer.
+         -->
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.http.jetty</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.atomos</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix.atomos</groupId>
+            <artifactId>osgi.core</artifactId>
+            <classifier>AtomosEquinox</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.configadmin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.platform</groupId>
+            <artifactId>org.eclipse.osgi</artifactId>
+        </dependency>
+    </dependencies>
+</project>

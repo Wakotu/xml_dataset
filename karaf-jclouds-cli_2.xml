@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.apache.jclouds.cli</groupId>
+    <artifactId>jclouds-cli-project</artifactId>
+    <relativePath>../project</relativePath>
+    <version>2.2.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>jclouds-cli-assembly</artifactId>
+  <name>Apache jclouds :: cli :: assembly</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.jclouds.cli</groupId>
+      <artifactId>jclouds-cli-branding</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.jclouds.cli</groupId>
+      <artifactId>jclouds-cli-runner</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${guava.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.karaf</groupId>
+      <artifactId>apache-karaf-minimal</artifactId>
+      <type>tar.gz</type>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.karaf</groupId>
+      <artifactId>apache-karaf-minimal</artifactId>
+      <type>zip</type>
+    </dependency>
+
+    <!-- External Logging Dependencies -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+      </resource>
+      <resource>
+        <directory>src/main/filtered-resources</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven-resources-plugin.version}</version>
+        <configuration>
+          <useDefaultDelimiters>false</useDefaultDelimiters>
+          <delimiters>
+            <delimiter>${*}</delimiter>
+          </delimiters>
+        </configuration>
+        <executions>
+          <execution>
+            <id>filter</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>resources</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <id>unpack-unix</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>org.apache.karaf</groupId>
+                  <artifactId>apache-karaf-minimal</artifactId>
+                  <version>${karaf.version}</version>
+                  <type>tar.gz</type>
+                  <outputDirectory>target/dependencies/unix</outputDirectory>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
+          </execution>
+          <execution>
+            <id>unpack-win</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>org.apache.karaf</groupId>
+                  <artifactId>apache-karaf-minimal</artifactId>
+                  <version>${karaf.version}</version>
+                  <type>zip</type>
+                  <outputDirectory>target/dependencies/win</outputDirectory>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.karaf.tooling</groupId>
+        <artifactId>karaf-maven-plugin</artifactId>
+        <version>${karaf.version}</version>
+        <executions>
+          <execution>
+            <id>features-add-to-repository</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>features-add-to-repository</goal>
+            </goals>
+            <configuration>
+              <descriptors>
+                <descriptor>
+                  mvn:org.apache.karaf.features/standard/${karaf.version}/xml/features
+                </descriptor>
+                <descriptor>
+                  mvn:org.apache.jclouds.karaf/jclouds-karaf/${jclouds.karaf.version}/xml/features
+                </descriptor>
+                <descriptor>
+                  mvn:org.apache.jclouds.karaf/jclouds-karaf-labs/${jclouds.karaf.version}/xml/features
+                </descriptor>
+              </descriptors>
+              <features>
+                <feature>config</feature>
+                <feature>log</feature>
+                <feature>shell-compat</feature>
+                <feature>wrap</feature>
+                <feature>jclouds-all-compute</feature>
+                <feature>jclouds-all-blobstore</feature>
+                <feature>jclouds-chef</feature>
+                <feature>jclouds-labs-all-compute</feature>
+                <feature>jclouds-labs-all-blobstore</feature>
+              </features>
+              <includeMvnBasedDescriptors>true</includeMvnBasedDescriptors>
+              <repository>target/features-repo</repository>
+            </configuration>
+            <inherited>false</inherited>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>${maven-antrun-plugin.version}</version>
+        <executions>
+          <execution>
+            <phase>prepare-package</phase>
+            <configuration>
+              <tasks>
+                <replace token="#!/bin/bash" value="#!/bin/sh"
+                         dir="target/dependencies/unix/apache-karaf-minimal-${karaf.version}/bin">
+                  <include name="*"/>
+                </replace>
+                <replaceregexp file="target/dependencies/unix/apache-karaf-minimal-${karaf.version}/etc/config.properties"
+                               match="karaf.framework.equinox=*"
+                               replace="#"
+                               byline="true"/>
+                <replaceregexp file="target/dependencies/win/apache-karaf-minimal-${karaf.version}/etc/config.properties"
+                               match="karaf.framework.equinox=*"
+                               replace="#"
+                               byline="true"/>
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>${maven-assembly-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>unix-bin</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptors>
+                <descriptor>src/main/assembly/unix.xml</descriptor>
+              </descriptors>
+              <finalName>jclouds-cli-${project.version}</finalName>
+              <tarLongFileMode>gnu</tarLongFileMode>
+              <appendAssemblyId>false</appendAssemblyId>
+            </configuration>
+          </execution>
+          <execution>
+            <id>windows-bin</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptors>
+                <descriptor>src/main/assembly/win.xml</descriptor>
+              </descriptors>
+              <finalName>jclouds-cli-${project.version}</finalName>
+              <appendAssemblyId>false</appendAssemblyId>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

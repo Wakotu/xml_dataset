@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.apache</groupId>
+    <artifactId>apache</artifactId>
+    <version>21</version>
+  </parent>
+
+  <groupId>org.apache.geronimo</groupId>
+  <artifactId>geronimo-opentracing-parent</artifactId>
+  <version>1.0.4-SNAPSHOT</version>
+  <name>Geronimo OpenTracing</name>
+  <packaging>pom</packaging>
+
+  <description>
+    Apache Geronimo implementation of the Microprofile OpenTracing Specification
+  </description>
+
+  <scm>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/geronimo-opentracing.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/geronimo-opentracing.git</developerConnection>
+    <url>https://gitbox.apache.org/repos/asf/geronimo-opentracing.git</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <properties>
+    <opentracing-api.version>0.31.0</opentracing-api.version>
+    <microprofile-opentracing-api.version>1.2</microprofile-opentracing-api.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.eclipse.microprofile.opentracing</groupId>
+      <artifactId>microprofile-opentracing-api</artifactId>
+      <version>${microprofile-opentracing-api.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.opentracing</groupId>
+      <artifactId>opentracing-api</artifactId>
+      <version>${opentracing-api.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-servlet-api</artifactId>
+      <version>9.0.12</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-jaxrs_2.1_spec</artifactId>
+      <version>1.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-annotation_1.3_spec</artifactId>
+      <version>1.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-jsonb_1.0_spec</artifactId>
+      <version>1.0</version>
+      <scope>provided</scope>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>6.8.21</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-jcdi_2.0_spec</artifactId>
+        <version>1.1</version>
+        <scope>provided</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <modules>
+    <module>geronimo-opentracing-common</module>
+    <module>geronimo-opentracing</module>
+    <module>geronimo-opentracing-osgi</module>
+    <module>geronimo-opentracing-extension</module>
+  </modules>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <version>4.1.0</version>
+        <extensions>true</extensions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.0</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <archive combine.children="append">
+            <manifestEntries>
+              <Automatic-Module-Name>${geronimo-opentracing.Automatic-Module-Name}</Automatic-Module-Name>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.4</version>
+        <executions>
+            <execution>
+                <phase>package</phase>
+                <goals>
+                    <goal>shade</goal>
+                </goals>
+                <configuration>
+                    <shadedArtifactAttached>true</shadedArtifactAttached>
+                    <shadedClassifierName>jakarta</shadedClassifierName>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                    <transformers>
+                        <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+                    </transformers>
+                    <artifactSet> <!-- don't include transitive deps -->
+                        <includes>
+                            <include>${project.groupId}:${project.artifactId}</include>
+                        </includes>
+                    </artifactSet>
+                    <relocations>
+                        <relocation>
+                            <pattern>javax.annotation</pattern>
+                            <shadedPattern>jakarta.annotation</shadedPattern>
+                            <excludes>
+                                <exclude>javax.annotation.processing.**</exclude>
+                            </excludes>
+                        </relocation>
+                        <relocation>
+                            <pattern>javax.enterprise</pattern>
+                            <shadedPattern>jakarta.enterprise</shadedPattern>
+                            <excludes>
+                                <exclude>javax.enterprise.deploy.**</exclude>
+                            </excludes>
+                        </relocation>
+                        <relocation>
+                            <pattern>javax.inject</pattern>
+                            <shadedPattern>jakarta.inject</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>javax.interceptor</pattern>
+                            <shadedPattern>jakarta.interceptor</shadedPattern>
+                        </relocation>
+                        <relocation>
+                          <pattern>javax.json</pattern>
+                          <shadedPattern>jakarta.json</shadedPattern>
+                        </relocation>
+                        <relocation>
+                          <pattern>javax.servlet</pattern>
+                          <shadedPattern>jakarta.servlet</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>javax.ws.rs</pattern>
+                            <shadedPattern>jakarta.ws.rs</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
+    </plugins>
+  </build>
+
+  <organization>
+    <name>The Apache Software Foundation</name>
+    <url>http://www.apache.org/</url>
+  </organization>
+
+  <inceptionYear>2018</inceptionYear>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Apache Geronimo Community</name>
+      <url>https://geronimo.apache.org</url>
+      <organization>Apache</organization>
+    </developer>
+  </developers>
+
+  <issueManagement>
+    <system>ASF JIRA</system>
+    <url>https://issues.apache.org/jira/browse/GERONIMO</url>
+  </issueManagement>
+</project>

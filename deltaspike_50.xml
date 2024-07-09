@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements. See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership. The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License. You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied. See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.apache.deltaspike</groupId>
+        <artifactId>deltaspike-project</artifactId>
+        <version>2.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>parent</artifactId>
+
+    <packaging>pom</packaging>
+
+    <name>Apache DeltaSpike Parent</name>
+    <description>Apache DeltaSpike Parent</description>
+
+    <issueManagement>
+        <system>jira</system>
+        <url>https://issues.apache.org/jira/browse/DELTASPIKE</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>cjenkins</system>
+        <url>http://builds.apache.org/</url>
+    </ciManagement>
+
+    <inceptionYear>2011</inceptionYear>
+
+    <properties>
+        <java.version>11</java.version>
+        <owb.version>4.0.2</owb.version>
+
+        <!-- Weld profiles (in parent/code/pom.xml) override this version -->
+        <weld.version>5.1.2.Final</weld.version>
+
+        <!-- for cdictrl-openejb -->
+        <tomee.version>10.0.0-M1</tomee.version>
+        <tomee-api.version>10.0-M2</tomee-api.version>
+
+        <openejb.owb.version>${owb.version}</openejb.owb.version>
+        <openejb.owb.version>${owb.version}</openejb.owb.version>
+
+        <!-- testing stuff -->
+        <junit.version>4.13.2</junit.version>
+        <arquillian.version>1.8.0.Final</arquillian.version>
+
+        <!-- Faces implementations -->
+        <myfaces.version>4.0.2</myfaces.version>
+
+        <tomcat.version>10.1.13</tomcat.version>
+
+        <!-- used for some bytecode proxy stuff. Shaded in -->
+        <asm.version>9.6</asm.version>
+
+        <maven.surefire.plugin.version>3.0.0-M4</maven.surefire.plugin.version>
+        <maven.bundle.plugin.version>3.5.0</maven.bundle.plugin.version>
+        <maven.jar.plugin.version>3.1.2</maven.jar.plugin.version>
+        <maven.dependency.plugin.version>2.4</maven.dependency.plugin.version>
+        <maven.checkstyle.plugin.version>2.16</maven.checkstyle.plugin.version>
+        <maven.compiler.plugin.version>3.10.1</maven.compiler.plugin.version>
+        <maven.assembly.plugin.version>3.2.0</maven.assembly.plugin.version>
+        <maven.artifact.version>3.0</maven.artifact.version>
+
+        <hamcrest.version>1.3</hamcrest.version>
+
+        <jacoco.version>0.7.4.201502262128</jacoco.version>
+
+        <arquillian-weld.version>4.0.0.Final</arquillian-weld.version>
+
+        <!-- OSGi bundles properties -->
+        <deltaspike.osgi.import.deltaspike.version>version="[$(version;==;${deltaspike.osgi.version.clean}),$(version;=+;${deltaspike.osgi.version.clean}))"</deltaspike.osgi.import.deltaspike.version>
+        <deltaspike.osgi.import.strict.version>version="[$(version;===;${deltaspike.osgi.version.clean}),$(version;==+;${deltaspike.osgi.version.clean}))"</deltaspike.osgi.import.strict.version>
+        <deltaspike.osgi.import.default.version>[$(version;==;$(@)),$(version;+;$(@)))</deltaspike.osgi.import.default.version>
+        <deltaspike.osgi.import.defaults>
+            org.springframework.*;version="[3,4)",
+        </deltaspike.osgi.import.defaults>
+        <deltaspike.osgi.import.before.defaults />
+        <deltaspike.osgi.import.additional />
+        <deltaspike.osgi.import.pkg>
+            !${deltaspike.osgi.export.pkg},
+            org.apache.deltaspike.*;${deltaspike.osgi.import.deltaspike.version},
+            ${deltaspike.osgi.import.before.defaults},
+            ${deltaspike.osgi.import.defaults},
+            ${deltaspike.osgi.import.additional},
+            *
+        </deltaspike.osgi.import.pkg>
+        <deltaspike.osgi.activator />
+        <deltaspike.osgi.failok>false</deltaspike.osgi.failok>
+        <deltaspike.osgi.private.pkg>!*</deltaspike.osgi.private.pkg>
+        <deltaspike.osgi.export>${deltaspike.osgi.export.pkg};${deltaspike.osgi.version}</deltaspike.osgi.export>
+        <deltaspike.osgi.version>version=${project.version}</deltaspike.osgi.version>
+        <deltaspike.osgi.split.pkg>-split-package:=first</deltaspike.osgi.split.pkg>
+        <deltaspike.osgi.import>${deltaspike.osgi.import.pkg}</deltaspike.osgi.import>
+        <deltaspike.osgi.dynamic />
+        <deltaspike.osgi.symbolic.name>${project.groupId}.${project.artifactId}</deltaspike.osgi.symbolic.name>
+        <deltaspike.osgi.exclude.dependencies>false</deltaspike.osgi.exclude.dependencies>
+        <deltaspike.osgi.provide.capability />
+        <deltaspike.osgi.require.capability />
+        <cdi.osgi.beans-managed />
+
+
+        <jakarta.atinject-api.version>2.0.0</jakarta.atinject-api.version>
+        <jakarta.cdi-api.version>4.0.0</jakarta.cdi-api.version>
+        <jakarta.interceptor-api.version>2.0.0</jakarta.interceptor-api.version>
+        <jakarta.annotation-api.version>2.0.0</jakarta.annotation-api.version>
+        <jakarta.el-api.version>5.0.0</jakarta.el-api.version>
+        <jakarta.persistence-api.version>3.1.0</jakarta.persistence-api.version>
+        <jakarta.transaction-api.version>2.0.0</jakarta.transaction-api.version>
+        <jakarta.servlet-api.version>6.0.0</jakarta.servlet-api.version>
+    </properties>
+
+    <profiles>
+
+
+        <profile>
+            <id>coverage</id>
+            <!--
+             * Activate this profile to gather unit test coverage
+             * Start with:
+             * $> mvn clean install -Pcoverage
+             * The generated information will be in target/site/jacoco/index.html
+            -->
+
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.extension</groupId>
+                    <artifactId>arquillian-jacoco</artifactId>
+                    <version>1.0.0.Alpha7</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>org.jacoco.core</artifactId>
+                    <version>${jacoco.version}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>${jacoco.version}</version>
+                        <configuration>
+                            <propertyName>jacoco.agent</propertyName>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>report</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>jdk17+</id>
+            <activation>
+                <jdk>[17,)</jdk>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-plugin</artifactId>
+                            <configuration>
+                                <argLine>
+                                    --add-opens java.base/java.lang=ALL-UNNAMED
+                                    --add-opens java.base/java.util=ALL-UNNAMED
+                                    --add-opens java.rmi/sun.rmi.transport=ALL-UNNAMED
+                                </argLine>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
+
+
+    <modules>
+        <module>code</module>
+    </modules>
+
+    <developers>
+        <developer>
+            <id>gpetracek</id>
+            <name>Gerhard Petracek</name>
+            <email>gpetracek@apache.org</email>
+            <organization>IRIAN.at, Austria</organization>
+            <organizationUrl>http://www.irian.at/</organizationUrl>
+            <roles>
+                <role>PMC</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>lightguardjp</id>
+            <name>Jason Porter</name>
+            <email>lightguardjp@apache.org</email>
+            <roles>
+                <role>PMC</role>
+            </roles>
+            <timezone>-7</timezone>
+        </developer>
+        <developer>
+            <id>mbenson</id>
+            <name>Matt Benson</name>
+            <email>mbenson@apache.org</email>
+            <roles>
+                <role>PMC</role>
+            </roles>
+            <timezone>-6</timezone>
+        </developer>
+        <developer>
+            <id>struberg</id>
+            <name>Mark Struberg</name>
+            <email>struberg@apache.org</email>
+            <roles>
+                <role>PMC</role>
+                <role>VP</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>arne</id>
+            <name>Arne Limburg</name>
+            <email>arne@apache.org</email>
+            <roles>
+                <role>PMC</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>rdebusscher</id>
+            <name>Rudy De Busscher</name>
+            <email>rdebusscher@apache.org</email>
+            <organization>C4J, Belgium</organization>
+            <roles>
+                <role>PMC</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>chkal</id>
+            <name>Christian Kaltepoth</name>
+            <email>chkal@apache.org</email>
+            <roles>
+                <role>PMC</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>cmoulliard</id>
+            <name>Charles Moulliard</name>
+            <email>cmoulliard@apache.org</email>
+            <roles>
+                <role>PMC</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>thug</id>
+            <name>Thomas Hug</name>
+            <email>thug@apache.org</email>
+            <roles>
+                <role>Committer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>johndament</id>
+            <name>John D. Ament</name>
+            <email>johndament@apache.org</email>
+            <roles>
+                <role>PMC</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
+        <developer>
+            <id>tandraschko</id>
+            <name>Thomas Andraschko</name>
+            <email>tandraschko@apache.org</email>
+            <roles>
+                <role>PMC</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>rafabene</id>
+            <name>Rafael Benevides</name>
+            <email>rafabene@apache.org</email>
+            <roles>
+                <role>Committer</role>
+            </roles>
+            <timezone>-3</timezone>
+        </developer>
+        <developer>
+            <id>rsmeral</id>
+            <name>Ron Smeral</name>
+            <email>rsmeral@apache.org</email>
+            <roles>
+                <role>Committer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>danielsoro</id>
+            <name>Daniel Cunha</name>
+            <email>danielsoro@apache.org</email>
+            <roles>
+                <role>Committer</role>
+            </roles>
+            <timezone>-3</timezone>
+        </developer>
+        <developer>
+            <id>hwellmann</id>
+            <name>Harald Wellmann</name>
+            <email>hwellmann@apache.org</email>
+            <roles>
+                <role>Committer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>manovotn</id>
+            <name>Matej Novotny</name>
+            <email>manovotn@apache.org</email>
+            <roles>
+                <role>Committer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>cbeikov</id>
+            <name>Christian Beikov</name>
+            <email>cbeikov@apache.org</email>
+            <roles>
+                <role>Committer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- this imports all version definitions for Arquillian -->
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>${arquillian.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.annotation</groupId>
+                <artifactId>jakarta.annotation-api</artifactId>
+                <version>${jakarta.annotation-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.inject</groupId>
+                <artifactId>jakarta.inject-api</artifactId>
+                <version>${jakarta.atinject-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.enterprise</groupId>
+                <artifactId>jakarta.enterprise.cdi-api</artifactId>
+                <version>${jakarta.cdi-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.interceptor</groupId>
+                <artifactId>jakarta.interceptor-api</artifactId>
+                <version>${jakarta.interceptor-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.el</groupId>
+                <artifactId>jakarta.el-api</artifactId>
+                <version>${jakarta.el-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.transaction</groupId>
+                <artifactId>jakarta.transaction-api</artifactId>
+                <version>${jakarta.transaction-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.persistence</groupId>
+                <artifactId>jakarta.persistence-api</artifactId>
+                <version>${jakarta.persistence-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-servlet-api</artifactId>
+                <version>${tomcat.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!--
+                We currently need this for the CDI test container to emulate the @SessionScoped.
+                TODO: Finally this should not be necessary anymore.
+            -->
+<!--
+            <dependency>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-servlet-api</artifactId>
+                <version>${tomcat.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-el-api</artifactId>
+                <version>${tomcat.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+-->
+
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-library</artifactId>
+                <version>${hamcrest.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- dependency for DELTASPIKE-1401 -->
+            <dependency>
+                <groupId>org.owasp.encoder</groupId>
+                <artifactId>encoder</artifactId>
+                <version>1.2.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>1.9.5</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+
+    </dependencyManagement>
+
+    <!-- These dependencies are needed for each and every module in this project -->
+    <dependencies>
+        <!-- unit testing stuff -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <version>${arquillian.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven.jar.plugin.version}</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven.surefire.plugin.version}</version>
+                    <configuration>
+                        <trimStackTrace>false</trimStackTrace>
+                    </configuration>
+                    <dependencies>
+                        <!-- We need to add this manually to get the category support for JUnit -->
+                        <dependency>
+                            <groupId>org.apache.maven.surefire</groupId>
+                            <artifactId>surefire-junit47</artifactId>
+                            <version>${maven.surefire.plugin.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <version>${maven.dependency.plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <version>${maven.bundle.plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>${maven.assembly.plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <!--
+                    - Copy LICENSE.txt and NOTICE.txt so that they are included
+                    - in the -javadoc jar file for the component.
+                -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>javadoc.resources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <copy todir="${project.build.directory}/apidocs/META-INF">
+                                    <fileset dir="${basedir}">
+                                        <include name="LICENSE.txt" />
+                                        <include name="NOTICE.txt" />
+                                    </fileset>
+                                </copy>
+                            </target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>javadoc.site.copy</id>
+                        <phase>site</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <!-- Copy javadoc to another directory, to keep javadoc of previous versions on site -->
+                                <copy todir="${project.build.directory}/site/apidocs-${project.version}" failonerror="false">
+                                    <fileset dir="${project.build.directory}/site/apidocs" />
+                                </copy>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--
+                - Make a checkstyle violation a compile error. Note that if a compile error occurs,
+                - further information can be found in target/site/checkstyle.html (present even when
+                - just the compile goal and not the site goal has been run). Note also that child
+                - projects may redeclare this plugin and provide different configuration settings
+                - to use different checks (more or less strict than the default).
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven.checkstyle.plugin.version}</version>
+                <configuration>
+                    <configLocation>deltaspike/default-checks.xml</configLocation>
+                    <headerLocation>deltaspike/asf-header.txt</headerLocation>
+                    <consoleOutput>true</consoleOutput>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>verify-style</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.deltaspike</groupId>
+                        <artifactId>checkstyle-rules</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <inherited>true</inherited>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <release>${java.version}</release>
+                </configuration>
+            </plugin>
+
+            <!-- Generate Manifest file required for OSGI bundles -->
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>${maven.bundle.plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-Name>${project.artifactId}</Bundle-Name>
+                        <Bundle-SymbolicName>${deltaspike.osgi.symbolic.name}</Bundle-SymbolicName>
+                        <Bundle-Activator>${deltaspike.osgi.activator}</Bundle-Activator>
+                        <Export-Package>${deltaspike.osgi.export}</Export-Package>
+                        <Import-Package>${deltaspike.osgi.import}</Import-Package>
+                        <DynamicImport-Package>${deltaspike.osgi.dynamic}</DynamicImport-Package>
+                        <Private-Package>${deltaspike.osgi.private.pkg}</Private-Package>
+                        <Implementation-Title>Apache DeltaSpike</Implementation-Title>
+                        <Implementation-Version>${project.version}</Implementation-Version>
+                        <Pax-ManagedBeans>${cdi.osgi.beans-managed}</Pax-ManagedBeans>
+                        <Karaf-Info>DeltaSpike;${project.artifactId}=${project.version}</Karaf-Info>
+                        <_versionpolicy>${deltaspike.osgi.import.default.version}</_versionpolicy>
+                        <_failok>${deltaspike.osgi.failok}</_failok>
+                        <Require-Capability>${deltaspike.osgi.require.capability}</Require-Capability>
+                        <Provide-Capability>${deltaspike.osgi.provide.capability}</Provide-Capability>
+                    </instructions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>versions</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>cleanVersions</goal>
+                        </goals>
+                        <configuration>
+                            <versions>
+                                <deltaspike.osgi.version.clean>${project.version}</deltaspike.osgi.version.clean>
+                            </versions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven.checkstyle.plugin.version}</version>
+                <configuration>
+                    <configLocation>deltaspike/default-checks.xml</configLocation>
+                    <headerLocation>deltaspike/asf-header.txt</headerLocation>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+
+</project>

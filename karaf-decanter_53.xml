@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <!--
+
+        Licensed to the Apache Software Foundation (ASF) under one or more
+        contributor license agreements.  See the NOTICE file distributed with
+        this work for additional information regarding copyright ownership.
+        The ASF licenses this file to You under the Apache License, Version 2.0
+        (the "License"); you may not use this file except in compliance with
+        the License.  You may obtain a copy of the License at
+
+           http://www.apache.org/licenses/LICENSE-2.0
+
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.
+    -->
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.apache.karaf.decanter</groupId>
+        <artifactId>collector</artifactId>
+        <version>2.10.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <groupId>org.apache.karaf.decanter.collector</groupId>
+    <artifactId>org.apache.karaf.decanter.collector.redis</artifactId>
+    <packaging>bundle</packaging>
+    <name>Apache Karaf :: Decanter :: Collector :: Redis</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.component</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.component.annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.event</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.19.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.karaf.decanter.collector</groupId>
+            <artifactId>org.apache.karaf.decanter.collector.utils</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>src/main/cfg/org.apache.karaf.decanter.collector.redis.cfg</file>
+                                    <type>cfg</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <inherited>true</inherited>
+                <extensions>true</extensions>
+                <configuration>
+                    <obrRepository>NONE</obrRepository>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Export-Package>!*</Export-Package>
+                        <Import-Package>
+                            com.esotericsoftware.kryo*;resolution:=optional,
+                            !com.github.benmanes.caffeine.cache,
+                            !io.micrometer.core*,
+                            !io.netty*,
+                            !lzma*,
+                            !net.bytebuddy*,
+                            !org.xerial.snappy*,
+                            !reactor*,
+														!org.objenesis*,
+                            com.google.protobuf*;resolution:=optional,
+                            com.jcraft.jzlib;resolution:=optional,
+                            com.ning.compress*;resolution:=optional,
+                            com.oracle.svm*;resolution:=optional,
+                            com.esotericsoftware.kryo*;resolution:=optional,
+                            com.aayushatharva.brotli4j*;resolution:=optional,
+                            com.github.luben.zstd;resolution:=optional,
+                            io.reactivex*;resolution:=optional,
+                            javax.cache*;resolution:=optional,
+                            jodd.bean*;resolution:=optional,
+                            jdk.internal.misc;resolution:=optional,
+                            net.jpountz*;resolution:=optional,
+                            org.bouncycastle*;resolution:=optional,
+                            org.conscrypt*;resolution:=optional,
+                            org.eclipse.jetty*;resolution:=optional,
+                            org.jboss*;resolution:=optional,
+                            com.fasterxml.jackson.dataformat.avro;resolution:=optional,
+                            com.fasterxml.jackson.dataformat.cbor;resolution:=optional,
+                            com.fasterxml.jackson.dataformat.ion;resolution:=optional,
+                            com.fasterxml.jackson.dataformat.smile;resolution:=optional,
+                            com.fasterxml.jackson.dataformat.yaml;resolution:=optional,
+                            org.msgpack.jackson*;resolution:=optional,
+                            org.nustaq*;resolution:=optional,
+                            org.reactivestreams*;resolution:=optional,
+                            org.springframework*;resolution:=optional,
+                            javax.annotation*;resolution:=optional,
+                            kotlin*;resolution:=optional,
+                            sun*;resolution:=optional,
+                            com.sun.jna;resolution:=optional,
+														COM.newmonics*;resolution:=optional,
+														android*;resolution:=optional,
+                            *
+                        </Import-Package>
+                        <Private-Package>
+                            org.redisson*,
+                            com.github.benmanes.caffeine.cache,
+                            io.micrometer.core*,
+                            io.netty*,
+                            lzma*,
+                            net.bytebuddy*,
+                            org.xerial.snappy*,
+                            reactor*,
+                            jodd.*,
+														org.objenesis*,
+                            org.apache.karaf.decanter.collector.redis,
+                            org.apache.karaf.decanter.collector.utils
+                        </Private-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ~ Licensed to the Apache Software Foundation (ASF) under one ~ or more 
+  contributor license agreements. See the NOTICE file ~ distributed with this 
+  work for additional information ~ regarding copyright ownership. The ASF 
+  licenses this file ~ to you under the Apache License, Version 2.0 (the ~ 
+  "License"); you may not use this file except in compliance ~ with the License. 
+  You may obtain a copy of the License at ~ ~ http://www.apache.org/licenses/LICENSE-2.0 
+  ~ ~ Unless required by applicable law or agreed to in writing, ~ software 
+  distributed under the License is distributed on an ~ "AS IS" BASIS, WITHOUT 
+  WARRANTIES OR CONDITIONS OF ANY ~ KIND, either express or implied. See the 
+  License for the ~ specific language governing permissions and limitations 
+  ~ under the License. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.apache.maven</groupId>
+    <artifactId>maven-parent</artifactId>
+    <version>30</version>
+    <relativePath>../../../pom/maven/pom.xml</relativePath>
+  </parent>
+
+  <groupId>org.apache.maven.dist.tools</groupId>
+  <artifactId>dist-tool-plugin</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>maven-plugin</packaging>
+
+  <description>Dist tool plugin: check content of Maven distribution area. 
+        Not to be released.</description>
+
+  <url>https://builds.apache.org/view/M-R/view/Maven/job/dist-tool-plugin/site/</url>
+
+  <prerequisites>
+    <maven>3.0.4</maven>
+  </prerequisites>
+
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/maven/sandbox/trunk/dist-tools/dist-tool-plugin/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/maven/sandbox/trunk/dist-tools/dist-tool-plugin/</developerConnection>
+    <url>http://svn.apache.org/viewvc/maven/sandbox/trunk/dist-tools/dist-tool-plugin/</url>
+  </scm>
+
+  <properties>
+    <netbeans.checkstyle.format>true</netbeans.checkstyle.format>
+    <mvnversion>3.0.4</mvnversion>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>    
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>${mvnversion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.plugin-tools</groupId>
+      <artifactId>maven-plugin-annotations</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jsoup</groupId>
+      <artifactId>jsoup</artifactId>
+      <version>1.7.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-core</artifactId>
+      <version>${mvnversion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-repository-metadata</artifactId>
+      <version>${mvnversion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.reporting</groupId>
+      <artifactId>maven-reporting-impl</artifactId>
+      <version>2.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.aether</groupId>
+      <artifactId>aether-api</artifactId>
+      <version>0.9.0.M2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.aether</groupId>
+      <artifactId>aether-util</artifactId>
+      <version>0.9.0.M2</version>
+    </dependency>
+    <dependency>
+      <groupId>xml-apis</groupId>
+      <artifactId>xml-apis</artifactId>
+      <version>1.4.01</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-aether-provider</artifactId>
+      <version>${mvnversion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact</artifactId>
+      <version>2.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-firefox-driver</artifactId>
+      <version>2.33.0</version>
+      <type>jar</type>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.2.5</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>animal-sniffer-maven-plugin</artifactId>
+        <version>1.9</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>default-descriptor</id>
+            <phase>process-classes</phase>
+          </execution>
+          <execution>
+            <id>generated-helpmojo</id>
+            <goals>
+              <goal>helpmojo</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- copy data from fluido skin to make generated site usable even if failure -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>unpack</id>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>org.apache.maven.skins</groupId>
+                  <artifactId>maven-fluido-skin</artifactId>
+                  <version>1.4</version>
+                  <outputDirectory>${project.build.directory}/site</outputDirectory>
+                  <includes>**\/*.css, **\/*.png, **\/*.gif</includes>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <configuration>
+          <excludes combine.children="append">
+            <exclude>.repository/**</exclude> <!-- jenkins with local maven repository -->
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+
+      <!-- jxr first -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <configuration>
+          <aggregate>true</aggregate>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>index</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>${project.artifactId}</artifactId>
+        <version>${project.version}</version>
+        <configuration>
+          <ignoreSiteFailures>
+            <ignoreSiteFailure>apache-incubator-disclaimer-resource-bundle:1.1</ignoreSiteFailure>
+          </ignoreSiteFailures>
+          <ignoreDistFailures>
+            <ignoreDistFailure>doxia-linkcheck:1.2</ignoreDistFailure>
+            <ignoreDistFailure>apache-maven:2.0.11</ignoreDistFailure><!-- this one is in distribution area but not in central -->
+            <ignoreDistFailure>maven-docck-plugin:1.0</ignoreDistFailure>
+            <ignoreDistFailure>maven-reactor-plugin:1.0</ignoreDistFailure>
+            <ignoreDistFailure>file-management:1.2.1</ignoreDistFailure>
+            <ignoreDistFailure>maven-repository-builder:1.0-alpha-2</ignoreDistFailure>
+            <ignoreDistFailure>apache-incubator-disclaimer-resource-bundle:1.1</ignoreDistFailure>
+            <ignoreDistFailure>apache-jar-resource-bundle:1.4</ignoreDistFailure>
+            <ignoreDistFailure>apache-license-header-resource-bundle:1.1</ignoreDistFailure>
+          </ignoreDistFailures>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <id>html</id>
+            <reports>
+              <report>check-site</report>
+              <report>check-source-release</report>
+              <report>check-index-page</report>
+              <report>check-errors</report>
+              <report>list-plugins-prerequisites</report>
+            </reports>
+          </reportSet>
+          <reportSet>
+            <id>fail</id>
+            <reports>
+              <report>failure-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+        <!-- <configuration> <configurationLines> <configurationLine>org.apache.maven.wagon;wagon;https://dist.apache.org/repos/dist/release/maven/wagon/</configurationLine> 
+          </configurationLines> </configuration> -->
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
+
+  <profiles>
+    <profile>
+      <id>run-its</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-invoker-plugin</artifactId>
+            <configuration>
+              <projectsDirectory>src/it</projectsDirectory>
+              <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
+              <pomIncludes>
+                <pomInclude>*</pomInclude>
+              </pomIncludes>
+              <preBuildHookScript>setup</preBuildHookScript>
+              <postBuildHookScript>verify</postBuildHookScript>
+              <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
+              <settingsFile>src/it/settings.xml</settingsFile>
+            </configuration>
+            <executions>
+              <execution>
+                <id>integration-test</id>
+                <goals>
+                  <goal>install</goal>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

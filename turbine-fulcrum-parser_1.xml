@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <groupId>org.apache.turbine</groupId>
+    <artifactId>turbine-parent</artifactId>
+    <version>12</version>
+    <relativePath />
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apache.fulcrum</groupId>
+  <artifactId>fulcrum-parser</artifactId>
+  <version>3.0.1-SNAPSHOT</version>
+  <name>Fulcrum Parser Service</name>
+  <inceptionYear>2005</inceptionYear>
+  <description>This Service functions as a repository for Parser components.</description>
+  <url>http://turbine.apache.org/fulcrum/fulcrum-parser</url>
+
+  <!-- Required for staging to work -->
+  <distributionManagement>
+    <site>
+         <id>apache.website</id>
+         <!-- scmPubUrl should be different for each project. If not defined scmPubUrl uses default value ${project.distributionManagement.site.url} -->
+         <url>scm:git:${turbine.scmPubUrl}</url>
+    </site>
+  </distributionManagement>
+  <scm>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/turbine-fulcrum-parser.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/turbine-fulcrum-parser.git</developerConnection>
+    <url>https://github.com/apache/${turbine.site.path}/tree/${project.scm.tag}</url>
+    <tag>fulcrum-parser-3-0-0-candidate</tag>
+  </scm>
+
+  <developers>
+    <developer>
+      <name>Eric Pugh</name>
+      <id>epugh</id>
+      <email>epugh@upstate.com</email>
+    </developer>  
+    <developer>
+      <name>Henning P. Schmiedehausen</name>
+      <id>henning</id>
+      <email>hps@intermeta.de</email>
+      <organization>INTERMETA - Gesellschaft fuer Mehrwertdienste mbH</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>      
+    </developer>  
+    <developer>
+      <name>Siegfried Goeschl</name>
+      <id>sgoeschl</id>
+      <email>sgoeschl@apache.org</email>
+      <organization />
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Thomas Vandahl</name>
+      <id>tv</id>
+      <email>tv@apache.org</email>
+      <organization />
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Jeffery Painter</name>
+      <id>painter</id>
+      <email>painter@apache.org</email>
+      <organization />
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Georg Kallidis</name>
+      <id>gk</id>
+      <email>gk@apache.org</email>
+      <organization />
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.avalon.framework</groupId>
+      <artifactId>avalon-framework-api</artifactId>
+      <version>4.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+      <scope>provided</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.13.0</version>
+    </dependency>
+    <!-- scope provided to avoid dependency inconsistencies to commons module dbcp2 -->
+    <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-pool2</artifactId>
+        <version>2.12.0</version>
+        <scope>provided</scope>
+    </dependency>
+    <!--  fulcrum-pool is required even if not used due to optional fall-back -->
+   <dependency>
+      <groupId>org.apache.fulcrum</groupId>
+      <artifactId>fulcrum-pool</artifactId>
+      <version>1.0.5</version>
+   </dependency>
+    <!-- testing dependencies -->
+    <dependency>
+      <groupId>org.apache.fulcrum</groupId>
+      <artifactId>fulcrum-testcontainer</artifactId>
+      <version>2.0.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.fulcrum</groupId>
+      <artifactId>fulcrum-yaafi</artifactId>
+      <version>2.0.0</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- log4j2 only usable in testcontainer 1.0.10 -->
+    <dependency>
+       <groupId>org.apache.logging.log4j</groupId>
+       <artifactId>log4j-core</artifactId>
+       <version>${turbine.log4j2.version}</version>
+       <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <sourceDirectory>${basedir}/src/java</sourceDirectory>
+    <testSourceDirectory>${basedir}/src/test</testSourceDirectory>
+     <testResources>
+      <testResource>
+        <directory>${basedir}/src/test</directory>
+        <includes>
+            <include>**</include> 
+        </includes>
+      </testResource>
+    </testResources>
+  </build>
+
+   <properties>
+    <turbine.site.path>turbine-fulcrum-parser</turbine.site.path>
+    <turbine.scmPubCheckoutDirectory>${turbine.site.cache}/fulcrum/parser</turbine.scmPubCheckoutDirectory>
+  </properties>  
+	
+</project>

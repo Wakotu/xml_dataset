@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one or more
+  ~ contributor license agreements.  See the NOTICE file distributed with
+  ~ this work for additional information regarding copyright ownership.
+  ~ The ASF licenses this file to you under the Apache License, Version 2.0
+  ~ (the "License"); you may not use this file except in compliance with
+  ~ the License.  You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-tools-parent</artifactId>
+    <version>${revision}</version>
+    <relativePath>../log4j-tools-parent</relativePath>
+  </parent>
+
+  <artifactId>log4j-docgen</artifactId>
+
+  <properties>
+    <maven.compiler.release>11</maven.compiler.release>
+
+    <!-- Disabling `bnd-baseline-maven-plugin`, since we don't have a release yet to compare against. -->
+    <bnd.baseline.fail.on.missing>false</bnd.baseline.fail.on.missing>
+
+    <!-- Dependency versions -->
+    <!-- We explicitly test against Log4j 2 -->
+    <log4j-core.version>2.23.1</log4j-core.version>
+    <log4j-plugins.version>3.0.0-beta2</log4j-plugins.version>
+
+  </properties>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>biz.aQute.bnd</groupId>
+      <artifactId>biz.aQute.bnd.annotation</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>jakarta.inject</groupId>
+      <artifactId>jakarta.inject-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jspecify</groupId>
+      <artifactId>jspecify</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.asciidoctor</groupId>
+      <artifactId>asciidoctorj-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-tools-internal-freemarker-util</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-tools-internal-test-util</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j-core.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-plugins</artifactId>
+      <version>${log4j-plugins.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.xmlunit</groupId>
+      <artifactId>xmlunit-assertj3</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+
+      <!-- We split the compilation into two executions:
+           1. One that is tolerant to warnings while compiling Modello-generated sources
+           2. One that is strict and fails on warnings while compiling the rest -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <executions>
+
+          <!-- Disable the default execution -->
+          <execution>
+            <id>default-compile</id>
+            <phase>none</phase>
+          </execution>
+
+          <!-- Tolerant (i.e., `failOnWarning=false`) execution for Modello-generated sources -->
+          <execution>
+            <id>compile-modello-sources</id>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <configuration>
+              <!-- Modello-generated classes -->
+              <includes>
+                <include>org/apache/logging/log4j/docgen/*.java</include>
+                <include>org/apache/logging/log4j/docgen/freemarker/*.java</include>
+                <include>org/apache/logging/log4j/docgen/io/stax/*.java</include>
+                <include>org/apache/logging/log4j/docgen/xsd/*.java</include>
+              </includes>
+            </configuration>
+          </execution>
+
+          <!-- Strict (i.e., `failOnWarning=true`) execution for the rest -->
+          <execution>
+            <id>compile-main</id>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <configuration>
+              <!-- Modello-generated classes -->
+              <excludes>
+                <exclude>org/apache/logging/log4j/docgen/*.java</exclude>
+                <exclude>org/apache/logging/log4j/docgen/freemarker/*.java</exclude>
+                <exclude>org/apache/logging/log4j/docgen/io/stax/*.java</exclude>
+                <exclude>org/apache/logging/log4j/docgen/xsd/*.java</exclude>
+              </excludes>
+              <failOnWarning>true</failOnWarning>
+            </configuration>
+          </execution>
+
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.modello</groupId>
+        <artifactId>modello-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate-model</id>
+            <goals>
+              <goal>java</goal>
+              <goal>stax-reader</goal>
+              <goal>stax-writer</goal>
+              <goal>xdoc</goal>
+              <goal>xsd</goal>
+            </goals>
+            <configuration>
+              <domAsXpp3>false</domAsXpp3>
+              <models>
+                <model>src/main/mdo/plugins-model.xml</model>
+              </models>
+              <version>0.1.0</version>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.eclipse.sisu</groupId>
+        <artifactId>sisu-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate-sisu-descriptor</id>
+            <goals>
+              <goal>main-index</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+
+</project>

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  The ASF licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <parent>
+       <artifactId>turbine-parent</artifactId>
+       <groupId>org.apache.turbine</groupId>
+       <version>13-SNAPSHOT</version>
+       <relativePath />
+   </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.apache.fulcrum</groupId>
+    <artifactId>fulcrum-security</artifactId>
+    <version>3.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Fulcrum Security Master Build</name>
+    <url>https://turbine.apache.org/fulcrum/fulcrum-security/</url>
+
+    <scm>
+        <connection>scm:git:https://gitbox.apache.org/repos/asf/turbine-fulcrum-security.git</connection>
+        <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/turbine-fulcrum-security.git</developerConnection>
+        <url>https://github.com/apache/${turbine.site.path}/tree/${project.scm.tag}</url>
+        <tag>HEAD</tag>
+    </scm>
+    
+     <!-- distributionManagement required for staging to work, id and url defined in parent, adapt turbine.site.path -->
+    <distributionManagement>
+      <site>
+          <name>Fulcrum Security Website</name>
+           <id>apache.org</id>
+          <url>https://github.com/apache/turbine-fulcrum-security/</url>
+        </site>
+   </distributionManagement>
+
+    <developers>
+        <developer>
+          <id>epugh</id>
+          <name>Eric Pugh</name>
+          <email>epugh@upstate.com</email>
+          <url />
+          <organization />
+          <timezone />
+        </developer>
+        <developer>
+          <name>Thomas Vandahl</name>
+          <id>tv</id>
+          <email>tv@apache.org</email>
+          <organization />
+          <roles>
+            <role>Java Developer</role>
+          </roles>
+          <timezone>1</timezone>
+        </developer>
+    </developers>
+    <contributors>
+        <contributor>
+            <name>Ben Gidley</name>
+            <email>ben.gidley@anite.com</email>
+            <organization>Anite</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>Michael Jones</name>
+            <email>michael.jones@anite.com</email>
+            <organization>Anite</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>Kostyantyn Shchekotykhin</name>
+            <email>kostya@ifit.uni-klu.ac.at</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </contributor>
+    </contributors>
+    
+    <dependencyManagement>
+        <dependencies>
+        <dependency>
+          <groupId>org.apache.fulcrum</groupId>
+          <artifactId>fulcrum-security-api</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.fulcrum</groupId>
+          <artifactId>fulcrum-security-api</artifactId>
+          <version>${project.version}</version>
+          <type>test-jar</type>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.fulcrum</groupId>
+          <artifactId>fulcrum-testcontainer</artifactId>
+          <version>2.0.0</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.fulcrum</groupId>
+          <artifactId>fulcrum-yaafi</artifactId>
+          <version>2.0.0</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.fulcrum</groupId>
+          <artifactId>fulcrum-security-memory</artifactId>
+          <version>${project.version}</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.logging.log4j</groupId>
+          <artifactId>log4j-api</artifactId>
+          <version>${turbine.log4j2.version}</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${turbine.log4j2.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.avalon.framework</groupId>
+            <artifactId>avalon-framework-api</artifactId>
+            <version>4.3.1</version>
+             <scope>provided</scope>
+         </dependency>
+         <dependency>
+             <groupId>org.apache.commons</groupId>
+             <artifactId>commons-lang3</artifactId>
+             <version>3.14.0</version>
+          </dependency>
+      </dependencies>
+    </dependencyManagement>
+    
+    <build>
+        <sourceDirectory>${basedir}/src/java</sourceDirectory>
+        <testSourceDirectory>${basedir}/src/test</testSourceDirectory>
+        <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-scm-publish-plugin</artifactId>
+              <configuration>
+                <content>${siteContent.path}</content>
+                <tryUpdate>false</tryUpdate>
+                <scmBranch>asf-site</scmBranch>
+              </configuration>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-javadoc-plugin</artifactId>
+              <configuration>
+                    <detectJavaApiLink>false</detectJavaApiLink>
+                    <!--  TODO : figure out why javadoc warnings are not ignored
+                        as this is breaking mvn site generation 
+                        The only 'warnings' that remain and are serious are coming from
+                        the OM generated classes
+                    -->
+                    <!--  worked on torque, but not here? -->
+                    <doclint>none</doclint>
+
+                    <!--  exclude generated sources for now (only works when running mvn javadoc:javadoc, but not with mvn site? -->
+                    <excludePackageNames>org.apache.fulcrum.security.torque.om.*</excludePackageNames>
+              </configuration>
+            </plugin>
+
+             <plugin>
+              <groupId>org.owasp</groupId>
+              <artifactId>dependency-check-maven</artifactId>
+              <executions>
+                  <execution>
+                      <goals>
+                          <goal>aggregate</goal>
+                      </goals>
+                  </execution>
+              </executions>
+              <configuration>
+                   <!-- suppress false positive -->
+                   <suppressionFiles>
+                    <suppressionFile>${project.basedir}/suppression-owasp.xml</suppressionFile>
+                    </suppressionFiles>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <modules>
+        <module>api</module>
+        <!-- disable it until https://issues.apache.org/jira/browse/TRB-103 is resolved --> 
+        <!--module>hibernate</module-->
+        <module>memory</module>
+        <!-- module>nt</module -->
+        <!--module>ldap</module-->
+        <module>torque</module>
+        <module>dist</module>
+    </modules>
+    
+    <!-- This let the report be set only at root level and is required since javadoc 3.1.0, as the aggregate reports by default at every level.  -->
+    <reporting>
+     <plugins>
+        <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-javadoc-plugin</artifactId>
+           <reportSets>
+             <reportSet>
+               <id>aggregate</id>
+               <inherited>false</inherited>
+               <reports>
+                <report>aggregate</report>
+               </reports>
+             </reportSet>
+             <reportSet>
+               <id>default</id>
+               <reports>
+                 <report>javadoc</report>
+                <report>test-javadoc</report>
+               </reports>          
+              </reportSet>
+           </reportSets>
+           <configuration>
+                 <detectJavaApiLink>false</detectJavaApiLink>
+                 <!-- required here -->
+                 <doclint>none</doclint>
+                <excludePackageNames>org.apache.fulcrum.security.torque.om.*</excludePackageNames>
+            </configuration>
+        </plugin>
+    </plugins>
+   </reporting>
+    
+    <properties>
+        <turbine.site.path>turbine-fulcrum-security</turbine.site.path>
+        <turbine.site.cache>${project.build.directory}/turbine-sites</turbine.site.cache>
+        <siteContent.path>${project.build.directory}/staging</siteContent.path><!-- default stagingSiteURL -->
+    </properties>
+</project>

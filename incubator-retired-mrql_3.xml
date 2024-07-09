@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.apache.mrql</groupId>
+  <artifactId>mrql-core</artifactId>
+  <packaging>jar</packaging>
+  <name>Apache MRQL core</name>
+  <url>http://mrql.incubator.apache.org/</url>
+  <inceptionYear>2013</inceptionYear>
+
+  <parent>
+    <groupId>org.apache.mrql</groupId>
+    <artifactId>mrql-parent</artifactId>
+    <version>0.9.8-incubating-SNAPSHOT</version>
+  </parent>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.mrql</groupId>
+      <artifactId>mrql-gen</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-shade-plugin</artifactId>
+	<version>2.1</version>
+	<executions>
+	  <execution>
+	    <phase>package</phase>
+	    <goals>
+	      <goal>shade</goal>
+	    </goals>
+	    <configuration>
+             <artifactSet>
+	       <includes>
+		 <include>org.apache.mrql:*</include>
+	       </includes>
+	       <excludes>
+		 <exclude>org.apache.mrql:mrql-gen</exclude>
+	       </excludes>
+              </artifactSet>
+	    </configuration>
+	  </execution>
+	</executions>
+      </plugin>
+     <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.4</version>
+	<configuration>
+	  <finalName>mrql-core-${project.version}</finalName>
+	  <outputDirectory>${project.parent.basedir}/lib</outputDirectory>
+	  <useDefaultManifestFile>true</useDefaultManifestFile>
+	</configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>test-jar</goal>
+            </goals>
+            <configuration>
+              <finalName>mrql-tests-${project.version}</finalName>
+              <outputDirectory>${project.parent.basedir}/lib</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>de.jflex</groupId>
+        <artifactId>maven-jflex-plugin</artifactId>
+        <version>1.4.3</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <lexDefinitions>
+                <lexDefinition>src/main/java/org/apache/mrql/mrql.lex</lexDefinition>
+                <lexDefinition>src/main/java/org/apache/mrql/JSON.lex</lexDefinition>
+              </lexDefinitions>
+	      <outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
+	      <verbose>false</verbose>
+	      <backup>false</backup>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+	<artifactId>maven-antrun-plugin</artifactId>
+	<version>1.7</version>
+	<executions>
+	  <execution>
+	    <id>gen</id>
+	    <phase>generate-sources</phase>
+	    <goals>
+	      <goal>run</goal>
+	    </goals>
+	    <configuration>
+              <target>
+                <mkdir dir="${project.build.directory}/generated-sources/org/apache/mrql" />
+		<property name="compile_classpath" refid="maven.compile.classpath" />
+		<fileset id="gen.path" dir="src/main/java/org/apache/mrql" includes="*.gen" />
+		<pathconvert pathsep=" " property="gen.files" refid="gen.path" />
+		<java classname="org.apache.mrql.gen.Main" classpath="../lib/mrql-gen-${project.version}.jar:${compile_classpath}">
+		  <arg line="${gen.files}" />
+		  <arg line="-o" />
+		  <arg file="${project.build.directory}/generated-sources/org/apache/mrql" />
+		</java>
+		<java classname="org.apache.mrql.gen.Main" classpath="../lib/mrql-gen-${project.version}.jar:${compile_classpath}">
+		  <arg file="src/main/java/org/apache/mrql/mrql.cgen" />
+		  <arg line="-o" />
+		  <arg file="${project.build.directory}/generated-sources/mrql.cup" />
+		</java>
+                <taskdef name="cup" classname="java_cup.anttask.CUPTask" classpathref="maven.compile.classpath" />
+                <cup srcfile="${project.build.directory}/generated-sources/mrql.cup" destdir="${project.build.directory}/generated-sources" nosummary="true" parser="MRQLParser" />
+                <cup srcfile="${project.basedir}/src/main/java/org/apache/mrql/JSON.cup" destdir="${project.build.directory}/generated-sources" nosummary="true" parser="JSONParser" symbols="jsym" />
+	      </target>
+	    </configuration>
+	  </execution>
+	</executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

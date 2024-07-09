@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.apache</groupId>
+        <artifactId>apache</artifactId>
+        <version>13</version>
+    </parent>
+
+    <groupId>org.apache.provisionr</groupId>
+    <artifactId>provisionr-parent</artifactId>
+    <version>0.5.0-incubating-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Apache Provisionr :: Parent</name>
+    <description>Pool management service for 10s or 100s of virtual machines</description>
+
+    <url>http://provisionr.incubator.apache.org/</url>
+    <inceptionYear>2012</inceptionYear>
+
+    <prerequisites>
+        <maven>3.0.3</maven>
+    </prerequisites>
+
+    <developers>
+        <developer>
+            <name>Tom White</name>
+            <email>tomwhite@apache.org</email>
+            <roles>
+                <role>mentor</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Mohammad Nour</name>
+            <email>mnour@apache.org</email>
+            <roles>
+                <role>mentor</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Roman Shaposhnik</name>
+            <email>rvs@apache.org</email>
+            <roles>
+                <role>mentor</role>
+                <role>committer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Andrei Savu</name>
+            <email>asavu@apache.org</email>
+            <roles>
+                <role>committer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Ioan Eugen Stan</name>
+            <email>ieugen@apache.org</email>
+            <roles>
+                <role>committer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Alex Ciminian</name>
+            <email>cimi@apache.org</email>
+            <roles>
+                <role>committer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Amandeep Khurana</name>
+            <email>ak@apache.org</email>
+            <roles>
+                <role>committer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Eric Sammer</name>
+            <email>esammer@apache.org</email>
+            <roles>
+                <role>committer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <organization>
+        <name>Apache Software Foundation</name>
+        <url>http://www.apache.org/</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:https://git-wip-us.apache.org/repos/asf/incubator-provisionr.git</connection>
+        <developerConnection>
+            scm:git:https://git-wip-us.apache.org/repos/asf/incubator-provisionr.git
+        </developerConnection>
+        <url>https://git-wip-us.apache.org/repos/asf?p=incubator-provisionr.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <mailingLists>
+        <mailingList>
+            <name>Apache Provisionr Development Mailing List</name>
+            <post>dev@provisionr.incubator.apache.org</post>
+            <subscribe>dev-subscribe@provisionr.incubator.apache.org</subscribe>
+            <unsubscribe>dev-unsubscribe@provisionr.incubator.apache.org</unsubscribe>
+            <archive>http://mail-archives.apache.org/mod_mbox/incubator-provisionr-dev/</archive>
+        </mailingList>
+    </mailingLists>
+
+    <issueManagement>
+        <system>jira</system>
+        <url>https://issues.apache.org/jira/browse/PROVISIONR</url>
+    </issueManagement>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <osgi.framework.version>4.3.0</osgi.framework.version>
+        <activiti.version>5.10</activiti.version>
+        <h2.version>1.3.168</h2.version>
+        <spring.version>3.1.4.RELEASE</spring.version>
+        <spring.osgi.version>1.2.1</spring.osgi.version>
+        <vaadin.version>6.6.2</vaadin.version>
+        <guava.version>13.0</guava.version>
+        <gson.version>1.7.1</gson.version>
+        <slf4j.version>1.6.6</slf4j.version>
+        <fest-assert.version>2.0M8</fest-assert.version>
+        <pax.exam.version>2.6.0</pax.exam.version>
+        <pax.url.version>1.4.0</pax.url.version>
+        <karaf.version>2.3.1</karaf.version>
+        <cxf.version>2.7.2</cxf.version>
+        <felix.version>3.2.2</felix.version>
+        <felix.fileinstall.version>3.2.6</felix.fileinstall.version>
+        <aws.sdk.version>1.3.14_1</aws.sdk.version>
+        <mybatis.version>3.1.1</mybatis.version>
+        <groovy.version>2.1.5</groovy.version>
+        <antlr.osgi.version>2.7.7_4</antlr.osgi.version>
+        <java.mail.version>1.4.4</java.mail.version>
+        <karaf.tooling.version>2.3.0</karaf.tooling.version>
+        <tinybundles.version>1.3.1</tinybundles.version>
+        <junit.osgi.version>4.10_1</junit.osgi.version>
+        <junit.version>4.10</junit.version>
+        <mockito.version>1.9.5</mockito.version>
+        <commons-codec.version>1.3_5</commons-codec.version>
+        <http-client.version>4.1.2</http-client.version>
+        <jclouds.version>1.5.3</jclouds.version>
+        <jclouds.karaf.version>1.5.3_1</jclouds.karaf.version>
+        <imgscalr-lib.version>3.1</imgscalr-lib.version>
+        <sshj.version>0.8.1</sshj.version>
+        <bouncycastle.version>1.46</bouncycastle.version>
+        <jzlib.bundle.version>1.0.7_1</jzlib.bundle.version>
+        <jzlib.version>1.0.7</jzlib.version>
+        <mustache.version>0.8.8</mustache.version>
+        <xmlunit.version>1.3</xmlunit.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.core</artifactId>
+                <version>${osgi.framework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.compendium</artifactId>
+                <version>${osgi.framework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.provisionr</groupId>
+                <artifactId>provisionr-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.provisionr</groupId>
+                <artifactId>provisionr-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.provisionr</groupId>
+                <artifactId>provisionr-console</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.provisionr</groupId>
+                <artifactId>provisionr-features</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.provisionr</groupId>
+                <artifactId>provisionr-amazon</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.provisionr</groupId>
+                <artifactId>provisionr-cloudstack</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.provisionr</groupId>
+                <artifactId>provisionr-branding</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.provisionr</groupId>
+                <artifactId>provisionr-commands</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.provisionr</groupId>
+                <artifactId>provisionr-rundeck</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.provisionr</groupId>
+                <artifactId>provisionr-examples</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-engine</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-osgi</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.provisionr</groupId>
+                <artifactId>activiti-database</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>9.1-901.jdbc4</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.schmizz</groupId>
+                <artifactId>sshj</artifactId>
+                <version>${sshj.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jcraft</groupId>
+                <artifactId>jzlib</artifactId>
+                <version>${jzlib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk16</artifactId>
+                <version>${bouncycastle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.spullara.mustache.java</groupId>
+                <artifactId>compiler</artifactId>
+                <version>${mustache.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.fileinstall</artifactId>
+                <version>${felix.fileinstall.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.provisionr</groupId>
+                <artifactId>provisionr-test-support</artifactId>
+                <version>${project.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>xmlunit</groupId>
+                <artifactId>xmlunit</artifactId>
+                <version>${xmlunit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${slf4j.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.servicemix.bundles</groupId>
+                <artifactId>org.apache.servicemix.bundles.junit</artifactId>
+                <version>${junit.osgi.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.easytesting</groupId>
+                <artifactId>fest-assert-core</artifactId>
+                <version>${fest-assert.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>apache.snapshots</id>
+            <name>Apache Snapshot Repository</name>
+            <url>http://repository.apache.org/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>central</id>
+            <url>http://repo1.maven.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>activiti</id>
+            <url>https://maven.alfresco.com/nexus/content/repositories/activiti/</url>
+        </repository>
+        <repository>
+            <id>buzzmedia</id>
+            <url>http://maven.thebuzzmedia.com</url>
+            <!-- ImageScalr -->
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>apache-snapshots</id>
+            <url>https://repository.apache.org/content/repositories/snapshots</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <distributionManagement>
+        <repository>
+            <id>apache.staging.https</id>
+            <name>Nexus Staging Repo</name>
+            <url>https://repository.apache.org/service/local/staging/deploy/maven2/
+            </url>
+        </repository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- use mvn versions:display-dependency-updates versions:display-plugin-updates -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <preparationGoals>clean install</preparationGoals>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.13</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/*LiveTest.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <extensions>true</extensions>
+                    <version>2.3.6</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <profile>
+            <!-- Used only when cutting a full release.  Configures the deploy plugin to mark
+                each artifact as a release (especially important for the archetype). Signs each
+                file deployed -->
+            <id>with-signing</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.4</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <properties>
+                <update-release-info>true</update-release-info>
+            </properties>
+        </profile>
+        <profile>
+            <!--  Only bind Javadoc JARs when the javadoc profile is active, since it is slow. -->
+            <id>with-javadoc</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.9</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>with-live-tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.15</version>
+                        <inherited>true</inherited>
+                        <configuration>
+                            <forkedProcessTimeoutInSeconds>3600</forkedProcessTimeoutInSeconds>
+                            <includes>
+                                <include>**/*LiveTest.java</include>
+                            </includes>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>integration-test</id>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>verify</id>
+                                <goals>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>with-rat</id>
+            <activation>
+                <property>
+                    <name>!skipRat</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.rat</groupId>
+                        <artifactId>apache-rat-plugin</artifactId>
+                        <version>0.9</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <excludes>
+                                <exlude>**/*.md</exlude>
+                                <exclude>NOTICE</exclude>
+                                <exclude>.git/**</exclude>
+                                <exclude>.repository/**</exclude>
+                                <exclude>.gitignore</exclude>
+                                <exclude>.idea/**</exclude>
+                                <exclude>**/*.iml</exclude>
+                                <exclude>**/*.project</exclude>
+                                <exclude>**/*.classpath</exclude>
+                                <exclude>**/*.prefs</exclude>
+                                <exclude>**/id_rsa_test</exclude>
+                                <exclude>**/id_rsa_test.pub</exclude>
+                                <exclude>**/*.bpmn20.xml</exclude>
+                                <exclude>**/*.activiti</exclude>
+                                <exclude>**/*.csv</exclude>
+                                <exclude>**/target/**</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

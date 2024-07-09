@@ -1,0 +1,1417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  The ASF licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.apache.turbine</groupId>
+    <artifactId>turbine-parent</artifactId>
+    <version>12</version>
+    <relativePath />
+  </parent>
+  <artifactId>turbine</artifactId>
+  <name>Apache Turbine</name>
+  <version>6.1-SNAPSHOT</version>
+  <description>Turbine is a servlet based framework that allows experienced Java
+    developers to quickly build secure web applications. Parts of Turbine
+    can also be used independently of the web portion of Turbine as
+    well. In other words, we strive to make portions of Turbine easily
+    available for use in other applications.</description>
+
+  <url>http://turbine.apache.org/${turbine.site.path}</url>
+
+  <inceptionYear>2000</inceptionYear>
+
+  <developers>
+    <developer>
+      <id>brekke</id>
+      <name>Jeff Brekke</name>
+      <email>ekkerbj@yahoo.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </developer>
+    <developer>
+      <id>hoffmann</id>
+      <name>Jürgen Hoffmann</name>
+      <email>hoffmann@apache.org</email>
+      <url />
+      <organization />
+      <timezone />
+    </developer>
+    <developer>
+      <id>daveb</id>
+      <name>Dave Bryson</name>
+      <email>mbryson@mont.mindspring.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </developer>
+    <developer>
+      <id>burton</id>
+      <name>Kevin A. Burton</name>
+      <email>burton@relativity.yi.org</email>
+      <url />
+      <organization />
+      <timezone />
+    </developer>
+    <developer>
+      <id>dobbs</id>
+      <name>Eric Dobbs</name>
+      <email>dobbs@apache.org</email>
+      <url />
+      <organization />
+      <timezone />
+    </developer>
+    <developer>
+      <id>seade</id>
+      <name>Scott Eade</name>
+      <email>seade@backstagetech.com.au</email>
+      <url />
+      <organization>Backstage Technologies Pty. Ltd.</organization>
+      <timezone />
+    </developer>
+    <developer>
+      <id>fedor</id>
+      <name>Fedor Karpelevitch</name>
+      <email>fedor@karpelevitch.net</email>
+      <url />
+      <organization />
+      <timezone />
+    </developer>
+    <developer>
+      <id>legassick</id>
+      <name>Sean Legassick</name>
+      <email>sean@informage.net</email>
+      <url />
+      <organization />
+      <timezone />
+    </developer>
+    <developer>
+      <id>jmcnally</id>
+      <name>John McNally</name>
+      <email>jmcnally@collab.net</email>
+      <url />
+      <organization>CollabNet, Inc.</organization>
+      <timezone />
+    </developer>
+    <developer>
+      <id>quintonm</id>
+      <name>Quinton McCombs</name>
+      <email>quintonm@bellsouth.net</email>
+      <url />
+      <organization>NEqualsOne</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      <timezone />
+    </developer>
+    <developer>
+      <id>painter</id>
+      <name>Jeffery Painter</name>
+      <email>jeff@jivecast.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </developer>
+    <developer>
+      <id>mpoeschl</id>
+      <name>Martin Poeschl</name>
+      <email>mpoeschl@marmot.at</email>
+      <url />
+      <organization>tucana.at</organization>
+      <timezone />
+    </developer>
+    <developer>
+      <id>epugh</id>
+      <name>Eric Pugh</name>
+      <email>epugh@upstate.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </developer>
+    <developer>
+      <id>dlr</id>
+      <name>Daniel Rall</name>
+      <email>dlr@finemaltcoding.com</email>
+      <url />
+      <organization>CollabNet, Inc.</organization>
+      <timezone />
+    </developer>
+    <developer>
+      <id>henning</id>
+      <name>Henning P. Schmiedehausen</name>
+      <email>hps@intermeta.de</email>
+      <url />
+      <organization>INTERMETA - Gesellschaft fuer Mehrwertdienste mbH</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+    <developer>
+      <id>kschrader</id>
+      <name>Kurt Schrader</name>
+      <email>kschrader@karmalab.org</email>
+      <url />
+      <organization>University of Michigan</organization>
+      <timezone />
+    </developer>
+    <developer>
+      <id>jon</id>
+      <name>Jon Scott Stevens</name>
+      <email>jon@latchkey.com</email>
+      <url />
+      <organization>CollabNet, Inc.</organization>
+      <timezone />
+    </developer>
+    <developer>
+      <name>Thomas Vandahl</name>
+      <id>tv</id>
+      <email>tv@apache.org</email>
+      <organization />
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+    <developer>
+      <name>Ludwig Magnusson</name>
+      <id>ludwig</id>
+      <email>ludwig@apache.org</email>
+      <organization />
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+    <developer>
+      <name>Georg Kallidis</name>
+      <id>gk</id>
+      <email>gk@apache.org</email>
+      <organization />
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <name>Gary Bartlett</name>
+      <email>gary_a_bartlett@yahoo.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Youngho Cho</name>
+      <email>youngho@nannet.co.kr</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Frank Conradie</name>
+      <email>frank@opticode.co.za</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Gonzalo A. Diethelm</name>
+      <email>gonzalo.diethelm@iname.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>David Duddleston</name>
+      <email>david@i2a.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Christopher Elkins</name>
+      <email>celkins@scardini.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>M. Sean Gilligan</name>
+      <email>Sean_Gilligan@catalla.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Jian He</name>
+      <email>hjnet@163.net</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Humberto Hernandez</name>
+      <email>hhernandez@itweb.com.mx</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Nissim Karpenstein</name>
+      <email>nissim@nksystems.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Rafal Krzewski</name>
+      <email>krzewski@e-point.pl</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Chris Kimpton</name>
+      <email>kimptoc.mail@bigfoot.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Brian Lawler</name>
+      <email>brian@tribenetwork.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Josh Lucas</name>
+      <email>josh@stonecottage.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Carl Ludwig</name>
+      <email>carl@destinymusic.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Jonas Mauras</name>
+      <email>jm@mediaphil.de</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Brett McLaughlin</name>
+      <email>bmclaugh@algx.net</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Leon Messerschmidt</name>
+      <email>leon@opticode.co.za</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Chris Meyer</name>
+      <email>cmeyer@gatan.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Steven Nagy</name>
+      <email>snagy@web-publicity.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Kasper Nielsen</name>
+      <email>kav@kav.dk</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Paul O'Leary</name>
+      <email>paul@evolventtech.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Giacomo Pati</name>
+      <email>Giacomo.Pati@pwr.ch</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Mark Porter</name>
+      <email>mark.porter@canlink.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Jeff Prickett</name>
+      <email>jeffprickett@mindspring.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Ilkka Priha</name>
+      <email>ilkka.priha@simsoft.fi</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Cameron Riley</name>
+      <email>criley@ekmail.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Greg Ritter</name>
+      <email>greg@shwoop.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Ingo Schuster</name>
+      <email>ingo@raleigh.ibm.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Costas Stergiou</name>
+      <email>csterg@aias.gr</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>George Stewart</name>
+      <email>georgestewart@yahoo.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Ralf Stranzenbach</name>
+      <email>ralf@reswi.ruhr.de</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Hakan Tandogan</name>
+      <email>hakan42@gmx.de</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Scott C. Tavares</name>
+      <email>stavares@home.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>John Thorhauer</name>
+      <email>john@zenplex.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Magnús Þór Torfason</name>
+      <email>magnus@handpoint.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Scott Weaver</name>
+      <email>sweaver@rippe.com</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+    <contributor>
+      <name>Siegfried Goeschl</name>
+      <email>sgoeschl@apache.org</email>
+      <url />
+      <organization />
+      <timezone />
+    </contributor>
+  </contributors>
+
+  <scm>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/turbine-core.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/turbine-core.git</developerConnection>    
+    <url>https://github.com/apache/${turbine.site.path}/tree/${project.scm.tag}</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  
+  <build>
+    <sourceDirectory>src/java</sourceDirectory>
+    <testSourceDirectory>src/test</testSourceDirectory>
+
+    <resources>
+      <resource>
+        <directory>src/macros</directory>
+        <targetPath>macros</targetPath>
+        <includes>
+          <include>TurbineMacros.vm</include>
+        </includes>
+      </resource>
+      <resource>
+          <directory>${basedir}/src/main/resources</directory>
+          <!-- remove filtering to allow for non utf-8, if required; e.g. the case of i10n and non ascii chars - otherwise use html entities or \u notation. java.util.Properties files are in latin-1.  -->
+          <filtering>true</filtering>
+          <includes>
+              <include>**/*.properties</include>
+              <include>**/*.xml</include>
+          </includes>
+      </resource>
+    </resources>
+
+    <!-- cft. loading path https://logging.apache.org/log4j/2.x/manual/configuration.html -->
+    <testResources>
+      <testResource>
+        <directory>conf/test</directory>
+        <includes>
+          <include>log4j2-test.xml</include>
+        </includes>
+      </testResource>
+    </testResources>
+    
+     <pluginManagement>
+      <plugins>
+       <plugin>
+        <groupId>org.apache.torque</groupId>
+        <artifactId>torque-maven-plugin</artifactId>
+        <version>${torque.version}</version>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.rat</groupId>
+            <artifactId>apache-rat-plugin</artifactId>
+            <version>0.15</version>
+            <configuration>
+                <excludes>
+                  <exclude>xdocs/images/*</exclude>
+                  <exclude>src/site/**</exclude>
+                  <exclude>proposals/**</exclude>
+                  <exclude>extensions/**</exclude>
+                  <exclude>conf/**</exclude>
+                  <exclude>README.md</exclude>
+                </excludes>
+              </configuration>
+          </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+
+     <plugin>
+       <!-- hint: mvn verify or skip with -Ddependency.check.skip=true  -->
+        <groupId>org.owasp</groupId>
+        <artifactId>dependency-check-maven</artifactId>
+        <configuration>
+           <!-- suppress false positive -->
+           <suppressionFiles>
+            <suppressionFile>${project.basedir}/suppression-owasp-fp.xml</suppressionFile>
+            </suppressionFiles>
+           <!-- no .NET code inside turbine -->
+           <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
+           <skip>${dependency.check.skip}</skip>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <executions>
+                <execution>
+                   <id>default-test</id>
+                    <configuration>
+                      <!--default setting is forkCount=1/reuseForks=true -->
+                      <reuseForks>false</reuseForks>
+                      <forkCount>1</forkCount>
+                      <excludedGroups>performance,docker,yaml</excludedGroups>
+                    </configuration>
+             </execution>
+         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.torque</groupId>
+        <artifactId>torque-maven-plugin</artifactId>
+        <configuration>
+          <runOnlyOnSourceChange>true</runOnlyOnSourceChange>
+        </configuration>
+        <executions>
+          <execution>
+            <id>generate-om-scheduler-sources</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <packaging>classpath</packaging>
+              <configPackage>org.apache.torque.templates.om</configPackage>
+              <sourceDir>src/torque/schema</sourceDir>
+              <sourceIncludes>
+                <include>scheduler-schema.xml</include>
+              </sourceIncludes>
+              <loglevel>error</loglevel>
+              <options>
+                <torque.database>mysql</torque.database>
+                <torque.om.addGetByNameMethods>false</torque.om.addGetByNameMethods>
+                <torque.om.save.saveException>TorqueException</torque.om.save.saveException>
+                <torque.om.package>org.apache.turbine.services.schedule</torque.om.package>
+                <torque.om.useIsForBooleanGetters>true</torque.om.useIsForBooleanGetters>
+                <torque.runOnlyOnSourceChange>true</torque.runOnlyOnSourceChange>
+              </options>
+              <outputDirMap>
+                <modifiable>${project.build.directory}/generated-sources</modifiable>
+              </outputDirMap>
+            </configuration>
+          </execution>
+          <execution>
+            <id>torque-sql-mysql</id>
+            <phase>package</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <packaging>classpath</packaging>
+              <configPackage>org.apache.torque.templates.sql</configPackage>
+              <sourceDir>src/torque/schema</sourceDir>
+              <defaultOutputDir>${project.build.directory}/generated-sql/torque/mysql</defaultOutputDir>
+              <defaultOutputDirUsage>none</defaultOutputDirUsage>
+              <loglevel>error</loglevel>
+              <options>
+                <torque.database>mysql</torque.database>
+              </options>
+            </configuration>
+          </execution>
+          <execution>
+            <id>torque-sql-hsqldb</id>
+            <phase>package</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <packaging>classpath</packaging>
+              <configPackage>org.apache.torque.templates.sql</configPackage>
+              <sourceDir>src/torque/schema</sourceDir>
+              <defaultOutputDir>${project.build.directory}/generated-sql/torque/hsqldb</defaultOutputDir>
+              <defaultOutputDirUsage>none</defaultOutputDirUsage>
+              <loglevel>error</loglevel>
+              <options>
+                <torque.database>hsqldb</torque.database>
+              </options>
+            </configuration>
+          </execution>
+          <execution>
+            <id>torque-sql-derby</id>
+            <phase>package</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <packaging>classpath</packaging>
+              <configPackage>org.apache.torque.templates.sql</configPackage>
+              <sourceDir>src/torque/schema</sourceDir>
+              <defaultOutputDir>${project.build.directory}/generated-sql/torque/derby</defaultOutputDir>
+              <defaultOutputDirUsage>none</defaultOutputDirUsage>
+              <loglevel>error</loglevel>
+              <options>
+                <torque.database>derby</torque.database>
+              </options>
+            </configuration>
+          </execution>
+          <execution>
+            <id>torque-sql-oracle</id>
+            <phase>package</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <packaging>classpath</packaging>
+              <configPackage>org.apache.torque.templates.sql</configPackage>
+              <sourceDir>src/torque/schema</sourceDir>
+              <defaultOutputDir>${project.build.directory}/generated-sql/torque/oracle</defaultOutputDir>
+              <defaultOutputDirUsage>none</defaultOutputDirUsage>
+              <loglevel>error</loglevel>
+              <options>
+                <torque.database>oracle</torque.database>
+              </options>
+            </configuration>
+          </execution>
+          <execution>
+            <id>torque-sql-postgresql</id>
+            <phase>package</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <packaging>classpath</packaging>
+              <configPackage>org.apache.torque.templates.sql</configPackage>
+              <sourceDir>src/torque/schema</sourceDir>
+              <defaultOutputDir>${project.build.directory}/generated-sql/torque/postgresql</defaultOutputDir>
+              <defaultOutputDirUsage>none</defaultOutputDirUsage>
+              <loglevel>error</loglevel>
+              <options>
+                <torque.database>postgresql</torque.database>
+              </options>
+            </configuration>
+          </execution>
+          <execution>
+            <id>torque-sql-mssql</id>
+            <phase>package</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <packaging>classpath</packaging>
+              <configPackage>org.apache.torque.templates.sql</configPackage>
+              <sourceDir>src/torque/schema</sourceDir>
+              <defaultOutputDir>${project.build.directory}/generated-sql/torque/mssql</defaultOutputDir>
+              <defaultOutputDirUsage>none</defaultOutputDirUsage>
+              <loglevel>error</loglevel>
+              <options>
+                <torque.database>mssql</torque.database>
+              </options>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>torque-idtable-mysql</id>
+            <phase>package</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <packaging>classpath</packaging>
+              <configPackage>org.apache.torque.templates.idtable</configPackage>
+              <sourceDir>src/torque/schema</sourceDir>
+              <defaultOutputDir>${project.build.directory}/generated-sql/torque/mysql</defaultOutputDir>
+              <defaultOutputDirUsage>none</defaultOutputDirUsage>
+              <loglevel>error</loglevel>
+              <options>
+                <torque.database>mysql</torque.database>
+              </options>
+            </configuration>
+          </execution>
+          <execution>
+            <id>torque-idtable-hsqldb</id>
+            <phase>package</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <packaging>classpath</packaging>
+              <configPackage>org.apache.torque.templates.idtable</configPackage>
+              <sourceDir>src/torque/schema</sourceDir>
+              <defaultOutputDir>${project.build.directory}/generated-sql/torque/hsqldb</defaultOutputDir>
+              <defaultOutputDirUsage>none</defaultOutputDirUsage>
+              <loglevel>error</loglevel>
+              <options>
+                <torque.database>hsqldb</torque.database>
+              </options>
+            </configuration>
+          </execution>
+          <execution>
+            <id>torque-idtable-derby</id>
+            <phase>package</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <packaging>classpath</packaging>
+              <configPackage>org.apache.torque.templates.idtable</configPackage>
+              <sourceDir>src/torque/schema</sourceDir>
+              <defaultOutputDir>${project.build.directory}/generated-sql/torque/derby</defaultOutputDir>
+              <defaultOutputDirUsage>none</defaultOutputDirUsage>
+              <loglevel>error</loglevel>
+              <options>
+                <torque.database>derby</torque.database>
+              </options>
+            </configuration>
+          </execution>
+          <execution>
+            <id>torque-idtable-oracle</id>
+            <phase>package</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <packaging>classpath</packaging>
+              <configPackage>org.apache.torque.templates.idtable</configPackage>
+              <sourceDir>src/torque/schema</sourceDir>
+              <defaultOutputDir>${project.build.directory}/generated-sql/torque/oracle</defaultOutputDir>
+              <defaultOutputDirUsage>none</defaultOutputDirUsage>
+              <loglevel>error</loglevel>
+              <options>
+                <torque.database>oracle</torque.database>
+              </options>
+            </configuration>
+          </execution>
+          <execution>
+            <id>torque-idtable-postgresql</id>
+            <phase>package</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <packaging>classpath</packaging>
+              <configPackage>org.apache.torque.templates.idtable</configPackage>
+              <sourceDir>src/torque/schema</sourceDir>
+              <defaultOutputDir>${project.build.directory}/generated-sql/torque/postgresql</defaultOutputDir>
+              <defaultOutputDirUsage>none</defaultOutputDirUsage>
+              <loglevel>error</loglevel>
+              <options>
+                <torque.database>postgresql</torque.database>
+              </options>
+            </configuration>
+          </execution>
+          <execution>
+            <id>torque-idtable-mssql</id>
+            <phase>package</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <packaging>classpath</packaging>
+              <configPackage>org.apache.torque.templates.idtable</configPackage>
+              <sourceDir>src/torque/schema</sourceDir>
+              <defaultOutputDir>${project.build.directory}/generated-sql/torque/mssql</defaultOutputDir>
+              <defaultOutputDirUsage>none</defaultOutputDirUsage>
+              <loglevel>error</loglevel>
+              <options>
+                <torque.database>mssql</torque.database>
+              </options>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.torque</groupId>
+                <artifactId>torque-templates</artifactId>
+                <version>${torque.version}</version>
+            </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <configuration>
+          <linkJavadoc>true</linkJavadoc>
+        </configuration>
+        <!-- no usable for aggregate, but we are aggregate = false implicitely  -->
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>jxr-no-fork</report>
+              <report>test-jxr-no-fork</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <!-- select non-aggregate reports -->
+              <report>report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <!-- check the Apache Licence in all source files -->
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <version>0.15</version>
+      </plugin>
+    </plugins>
+  </reporting>
+
+  <dependencies>
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>javax.servlet-api</artifactId>
+	    <version>3.1.0</version>
+	    <scope>provided</scope>
+	</dependency>
+    <dependency>
+      <groupId>org.apache.avalon.framework</groupId>
+      <artifactId>avalon-framework-api</artifactId>
+      <version>4.3.1</version>
+    </dependency>
+    <dependency>
+    	<groupId>commons-codec</groupId>
+    	<artifactId>commons-codec</artifactId>
+      <version>1.15</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-configuration2</artifactId>
+      <version>2.10.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-email</artifactId>
+      <version>1.6.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.14.0</version>
+    </dependency>
+    <dependency>
+       <groupId>org.apache.commons</groupId>
+       <artifactId>commons-text</artifactId>
+       <version>1.11.0</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>1.9.4</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.dataformat</groupId>
+      <artifactId>jackson-dataformat-yaml</artifactId>
+      <version>${jackson2.version}</version>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>nl.basjes.parse.useragent</groupId>
+      <artifactId>yauaa</artifactId>
+      <!-- java 11 required for v6.1+ -->
+      <version>7.24.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.fulcrum</groupId>
+      <artifactId>fulcrum-cache</artifactId>
+      <version>2.0.0</version>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.fulcrum</groupId>
+      <artifactId>fulcrum-factory</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.fulcrum</groupId>
+      <artifactId>fulcrum-pool</artifactId>
+      <version>1.0.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.fulcrum</groupId>
+      <artifactId>fulcrum-localization</artifactId>
+      <version>1.0.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.fulcrum</groupId>
+      <artifactId>fulcrum-parser</artifactId>
+      <version>${fulcrum.parser}</version>
+    </dependency>
+    <!-- overrid dep from torque-runtime -->
+    <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-pool2</artifactId>
+        <version>2.12.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.fulcrum</groupId>
+      <artifactId>fulcrum-intake</artifactId>
+      <version>${fulcrum.intake}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.fulcrum</groupId>
+      <artifactId>fulcrum-yaafi</artifactId>
+      <version>${fulcrum.yaafi}</version>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.fulcrum</groupId>
+      <artifactId>fulcrum-crypto</artifactId>
+      <version>1.0.8</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.fulcrum</groupId>
+      <artifactId>fulcrum-xslt</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.fulcrum</groupId>
+      <artifactId>fulcrum-mimetype</artifactId>
+      <version>1.0.6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.torque</groupId>
+      <artifactId>torque-runtime</artifactId>
+      <version>${torque.version}</version>
+      <exclusions>
+        <exclusion>
+            <groupId>avalon-framework</groupId>
+            <artifactId>avalon-framework-api</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>avalon-logkit</groupId>
+            <artifactId>avalon-logkit</artifactId>
+        </exclusion>
+         <exclusion><!-- already provided -->
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-1.2-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <!-- use default dbcp2 from torque-runtime -->
+    <dependency>
+         <groupId>commons-configuration</groupId>
+         <artifactId>commons-configuration</artifactId>
+         <version>1.10</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.fulcrum</groupId>
+      <artifactId>fulcrum-security-api</artifactId>
+      <version>${fulcrum.security}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.fulcrum</groupId>
+      <artifactId>fulcrum-security-memory</artifactId>
+      <version>${fulcrum.security}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.fulcrum</groupId>
+      <artifactId>fulcrum-security-api</artifactId>
+      <version>${fulcrum.security}</version>
+      <classifier>tests</classifier>
+      <scope>test</scope>
+    </dependency>
+    <!--  owasp warning resolved in v1.1.2, which references quartz-2.3.0.jar, fixing CVE-2019-13990, https://github.com/quartz-scheduler/quartz/issues/467 -->
+    <dependency>
+      <groupId>org.apache.fulcrum</groupId>
+      <artifactId>fulcrum-quartz</artifactId>
+      <version>1.1.2</version>
+    </dependency>
+    <!-- suppress owasp CVE-2018-11771, CVE-2018-1324 .. as jython-standalone is optional.
+     https://github.com/jython/jython/issues/137, https://github.com/jython/jython/issues/138 -->
+    <dependency>
+      <groupId>org.python</groupId>
+      <artifactId>jython-standalone</artifactId>
+      <version>2.7.3</version>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.jabsorb</groupId>
+      <artifactId>jabsorb</artifactId>
+      <version>1.3.2</version>
+      <optional>true</optional>
+      <!-- requires maven version >= 3,  
+         exclude old versions: org.slf4j:slf4j-jdk14,slf4j-api,(renamed)cl104-over-slf4j,org.mortbay.jetty:jsp-2.1, commons-httpclient:commons-httpclient,
+         mvn eclipse:eclipse still no wildcard exclude (mvn version 3.3.9)
+      -->
+      <exclusions>
+       <exclusion>
+          <artifactId>jsp-2.1</artifactId>
+          <groupId>org.mortbay.jetty</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jcl104-over-slf4j</artifactId>
+          <groupId>org.slf4j</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>slf4j-jdk14</artifactId>
+          <groupId>org.slf4j</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>*</artifactId>
+          <groupId>*</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-jcl</artifactId>
+      <version>${turbine.log4j2.version}</version>
+    </dependency>
+    <!-- yauaa + java testcontainers uses slf4j-api, need for log4j-slf4j-impl mapping-->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>${turbine.log4j2.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>2.0.11</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>${turbine.log4j2.version}</version>
+    </dependency>
+    <dependency>
+       <groupId>org.apache.logging.log4j</groupId>
+       <artifactId>log4j-core</artifactId>
+       <version>${turbine.log4j2.version}</version>
+    </dependency>
+    <!-- support of log4j-web (autodetect of log4j2 in WEB-INF folder) 
+         may allow to remove explicit log4j2 loading/configuration except for tests -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-web</artifactId>
+      <version>${turbine.log4j2.version}</version>
+    </dependency>
+    <!-- optional log4j1.2 bridge instead of log4j -->
+    <dependency>
+       <groupId>org.apache.logging.log4j</groupId>
+       <artifactId>log4j-1.2-api</artifactId>
+       <version>${turbine.log4j2.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.velocity</groupId>
+      <artifactId>velocity-engine-core</artifactId>
+      <version>2.3</version>
+    </dependency>
+    <!-- with the url mapper we need xml support -->
+ 	<dependency>
+        <groupId>jakarta.xml.bind</groupId>
+        <artifactId>jakarta.xml.bind-api</artifactId>
+        <version>4.0.1</version>
+    </dependency>
+    <dependency>
+         <groupId>org.glassfish.jaxb</groupId>
+          <artifactId>jaxb-runtime</artifactId>
+           <version>4.0.4</version>
+     </dependency>
+    <!-- testcontainer minimal shared resources -->
+    <dependency>
+      <groupId>org.apache.fulcrum</groupId>
+      <artifactId>fulcrum-testcontainer</artifactId>
+      <version>2.0.0</version>
+      <scope>test</scope>
+    </dependency> 
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>testcontainers</artifactId>
+      <version>${docker.testcontainers.version}</version>
+      <scope>test</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>${docker.testcontainers.version}</version>
+      <scope>test</scope>
+      <optional>true</optional>
+    </dependency>
+     <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13.2</version>
+        <scope>test</scope>
+      </dependency>
+  </dependencies>
+
+  <profiles>
+    <profile>
+      <id>apache-release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-site-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>turbine-release-site</id>
+                <phase>prepare-package</phase>
+                <goals>
+                  <goal>site</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+                <reportPlugins>
+                  <reportPlugin>
+                    <groupId>org.apache.rat</groupId>
+                    <artifactId>apache-rat-plugin</artifactId>
+                    <version>0.15</version>
+                  </reportPlugin>
+                </reportPlugins>
+            </configuration>
+          </plugin>
+          <plugin>
+            <!-- build the source and binary distribution packages -->
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>turbine-default-assembly</id>
+                <configuration>
+                  <skipAssembly>true</skipAssembly>
+                </configuration>
+              </execution>
+              <execution>
+                <id>turbine-core-assembly</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>single</goal>
+                </goals>
+                <configuration>
+                  <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
+                  <descriptors>
+                    <descriptor>./src/assembly/binaries.xml</descriptor>
+                    <descriptor>./src/assembly/source.xml</descriptor>
+                  </descriptors>
+                  <tarLongFileMode>gnu</tarLongFileMode>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>docker-testcontainer</id>
+      <activation>
+      <activeByDefault>false</activeByDefault>
+    </activation>
+      <build>
+         <testResources>
+          <testResource>
+            <directory>conf/docker-resources</directory>
+            <includes>
+              <include>db/mysql/initdb.d/data.sql</include>
+              <include>*.properties</include>
+            </includes>
+          </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-surefire-plugin</artifactId> 
+              <executions>
+                <execution>
+                   <id>default-test</id>
+                  <configuration>
+                    <groups>docker</groups>
+                    <excludedGroups>performance,yaml</excludedGroups>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${turbine.surefire.version}</version>
+            </plugin>
+          </plugins>
+      </build>
+      <dependencies>
+        <!-- docker testcontainer requires at least torque v5.0, start it like
+        inside IDE (add dependencies):
+        mvn eclipse:eclipse -Pdocker-testcontainer
+
+        from console:
+        mvn test -Pdocker-testcontainer
+
+        -->
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <version>${docker.testcontainers.version}</version>
+            <scope>test</scope>
+          </dependency>
+          <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${docker.testcontainers.version}</version>
+            <scope>test</scope>
+          </dependency>
+          <dependency>
+              <groupId>org.testcontainers</groupId>
+              <artifactId>mysql</artifactId>
+              <version>${docker.testcontainers.version}</version>
+              <scope>test</scope>
+          </dependency>
+          <dependency>
+            <groupId>org.apache.fulcrum</groupId>
+            <artifactId>fulcrum-security-torque</artifactId>
+            <version>${fulcrum.security}</version>
+            <exclusions>
+              <exclusion><!-- will we mapped in jcl-over-slf4j -->
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+              </exclusion>
+            </exclusions>
+          </dependency>
+          <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.3.0</version>
+          </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+        <id>yaml</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <!-- mvn test -Dtest=TurbineURLMapperYAMLServiceTest -Pyaml -->
+      <build>
+      <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-surefire-plugin</artifactId>
+              <executions>
+                <execution>
+                   <id>default-test</id>
+                  <configuration><!-- to override excludedGroups set something else (bug?)-->
+                    <groups>yaml</groups>
+                     <excludedGroups>docker,performance</excludedGroups>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin>
+          </plugins>
+      </build>
+      <dependencies>
+           <dependency>
+               <groupId>com.fasterxml.jackson.dataformat</groupId>
+               <artifactId>jackson-dataformat-yaml</artifactId>
+               <version>${jackson2.version}</version>
+           </dependency>
+       </dependencies>
+    </profile>
+    <profile>
+      <!-- allow reproducible / verifibable builds: build first and check with 
+          mvn clean install -Prv-builds
+          mvn clean verify artifact:compare -Prv-builds  
+          diffoscope ..
+       -->
+      <id>rv-builds</id>
+      <build>
+        <plugins>
+          <plugin>
+              <groupId>org.apache.torque</groupId>
+              <artifactId>torque-maven-plugin</artifactId>
+              <executions>
+                <execution>
+                  <id>generate-om-scheduler-sources</id>
+                  <configuration>
+                    <options>
+                       <!-- to allow for reproducible builds -->
+                      <torque.om.addTimeStamp>false</torque.om.addTimeStamp>
+                    </options>
+                  </configuration>
+                </execution>
+               </executions>
+          </plugin>
+            <!--  1) to be moved to parent to get buildNumber in parent implemenation.build property 
+                    2) requires no local midifications! 
+             -->
+            <!--plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                  <execution>
+                    <phase>validate</phase>
+                    <goals>
+                      <goal>create</goal>
+                    </goals>
+                  </execution>
+                </executions>
+                <configuration>
+                  <doCheck>true</doCheck>
+                  <doUpdate>true</doUpdate>
+                </configuration>
+            </plugin-->
+        </plugins>
+      </build>
+      <properties>
+          <!-- allow for reproducible builds: should not be inherited but defined in POM for  -->
+          <project.build.outputTimestamp>10</project.build.outputTimestamp>
+          <implementation.build>${scmBranch}@r${buildNumber};noTimeStamp</implementation.build>
+          <scmBranch>trunk</scmBranch>
+      </properties>
+    </profile>
+  </profiles>
+
+  <properties>
+    <!-- maven.compiler setting in turbine parent -->
+    <turbine.site.path>turbine-core</turbine.site.path>
+    <fulcrum.intake>3.0.0</fulcrum.intake>
+    <fulcrum.parser>3.0.0</fulcrum.parser>
+    <fulcrum.security>3.0.0</fulcrum.security>
+    <fulcrum.yaafi>2.0.0</fulcrum.yaafi>
+    <torque.version>5.2-SNAPSHOT</torque.version>
+    <jackson2.version>2.16.1</jackson2.version>
+    <doclint>none</doclint>
+    <docker.testcontainers.version>1.18.3</docker.testcontainers.version>
+    <jacoco.skip>true</jacoco.skip>
+    <argLine />
+  </properties>
+  
+  
+    <!-- to allow snapshot parents:  https://issues.apache.org/jira/browse/INFRA-15815  jenkins settings.xml is unchanged from beginning -->
+    <repositories>
+      <repository>
+        <id>apache.snapshots</id>
+        <name>Apache Snapshot Repository</name>
+        <url>https://repository.apache.org/snapshots</url>
+        <releases>
+          <enabled>false</enabled>
+        </releases>
+      </repository>
+    </repositories>
+</project>
+
